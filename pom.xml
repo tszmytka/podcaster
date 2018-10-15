@@ -29,19 +29,43 @@
                 </configuration>
             </plugin>
 
+            <!-- Jar Plugin will build a "slim" jar - with no dependencies or resources -->
+            <!--<plugin>-->
+            <!--<groupId>org.apache.maven.plugins</groupId>-->
+            <!--<artifactId>maven-jar-plugin</artifactId>-->
+            <!--<version>3.1.0</version>-->
+            <!--<configuration>-->
+            <!--<archive>-->
+            <!--<manifest>-->
+            <!--<mainClass>org.tomek.podcaster.Main</mainClass>-->
+            <!--</manifest>-->
+            <!--</archive>-->
+            <!--</configuration>-->
+            <!--</plugin>-->
+
+            <!-- Assembly Plugin will build an uber jar - all dependencies included -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
+                <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
                     <archive>
                         <manifest>
-                            <!-- this will probably be needed as soon as there are dependencies -->
-                            <!--<addClasspath>true</addClasspath>-->
                             <mainClass>org.tomek.podcaster.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
