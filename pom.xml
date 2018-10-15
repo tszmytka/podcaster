@@ -29,7 +29,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Jar Plugin will build a "slim" jar - with no dependencies or resources -->
+            <!-- Jar Plugin will build a "slim" jar with only resources attached - no dependencies -->
             <!--<plugin>-->
             <!--<groupId>org.apache.maven.plugins</groupId>-->
             <!--<artifactId>maven-jar-plugin</artifactId>-->
