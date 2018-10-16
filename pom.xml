@@ -34,7 +34,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Jar Plugin will build a "slim" jar with only resources attached - no dependencies -->
+            <!-- Jar Plugin builds a "slim" jar with only resources attached - no dependencies -->
             <!--<plugin>-->
             <!--<groupId>org.apache.maven.plugins</groupId>-->
             <!--<artifactId>maven-jar-plugin</artifactId>-->
@@ -48,7 +48,7 @@
             <!--</configuration>-->
             <!--</plugin>-->
 
-            <!-- Assembly Plugin will build an uber jar - all dependencies included -->
+            <!-- Assembly Plugin builds an uber jar - all dependencies included -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
