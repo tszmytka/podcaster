@@ -1,4 +1,5 @@
 # Podcaster
+Application meant to allow searching and automatically finding podcasts and providing them to the configured media player.
 
 ## Main tasks
 1. Find the appropriate podcast.
