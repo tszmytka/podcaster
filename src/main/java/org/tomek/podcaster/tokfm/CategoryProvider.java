@@ -11,10 +11,10 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CategoriesProvider {
+public class CategoryProvider {
     private final URL url;
 
-    public CategoriesProvider(URL url) {
+    public CategoryProvider(URL url) {
         this.url = url;
     }
 
@@ -22,7 +22,7 @@ public class CategoriesProvider {
         HashMap<Integer, Category> categories = new HashMap<>();
         try {
             Document document = Jsoup.connect(url.toString()).get();
-            Elements elements = document.select("#tok_audycje_list li");
+            Elements elements = document.select("#tok_audycje_list li.tok_audycje__element");
             for (Element element : elements) {
                 Elements link = element.select(".tok_audycje__prowadzacy");
                 Elements authorLinks = element.select("p.tok_audycje__leader");
@@ -45,5 +45,10 @@ public class CategoriesProvider {
         }
 
         return categories;
+    }
+
+
+    public Category getCategory(int id) {
+        return getCategories().get(id);
     }
 }
