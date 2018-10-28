@@ -12,16 +12,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PodcastProvider {
-    private final URL url;
 
-    public PodcastProvider(URL url) {
-        this.url = url;
-    }
-
-    public Map<Integer, Podcast> getPodcasts() {
+    public Map<Integer, Podcast> getPodcasts(URL sourceUrl) {
         HashMap<Integer, Podcast> podcasts = new HashMap<>();
         try {
-            Document document = Jsoup.connect(url.toString()).get();
+            Document document = Jsoup.connect(sourceUrl.toString()).get();
             Elements elements = document.select("#tok-podcasts li.tok-podcasts__podcast");
             for (Element element : elements) {
                 Element divTime = element.select(".tok-podcasts__row--time").first();

@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.tomek.podcaster.tokfm.CategoryProvider;
+import org.tomek.podcaster.tokfm.PodcastProvider;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,6 +19,12 @@ public class TokFmConfig {
     @Bean
     public CategoryProvider categoryProvider() throws MalformedURLException {
         return new CategoryProvider(new URL(categoriesUrl));
+    }
+
+
+    @Bean
+    public PodcastProvider podcastProvider() {
+        return new PodcastProvider();
     }
 
 
