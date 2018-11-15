@@ -11,7 +11,9 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-@Deprecated
+/**
+ * This will need to be migrated
+ */
 public class TokFmFinder {
     private final static String SOURCE_URL = "https://audycje.tokfm.pl/gets";
     private final static Gson GSON = new Gson();
