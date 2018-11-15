@@ -6,6 +6,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
+@Deprecated
 public class ListProvider {
     private final String baseUrl;
 

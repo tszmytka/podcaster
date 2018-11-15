@@ -2,11 +2,11 @@ package org.tomek.podcaster.runner;
 
 import java.io.IOException;
 
-public class ExternalAppRunner implements Runnable {
+public class PodcastPlayerRunner implements Runnable {
     private final String applicationPath;
     private final String podcastPath;
 
-    public ExternalAppRunner(String applicationPath, String podcastPath) {
+    public PodcastPlayerRunner(String applicationPath, String podcastPath) {
         this.applicationPath = applicationPath;
         this.podcastPath = podcastPath;
     }
@@ -14,7 +14,7 @@ public class ExternalAppRunner implements Runnable {
     @Override
     public void run() {
         try {
-            Process start = new ProcessBuilder(applicationPath, podcastPath).start();
+            new ProcessBuilder(applicationPath, podcastPath).start();
         } catch (IOException e) {
             System.out.println("Error while running external application: " + e.getMessage());
         }
