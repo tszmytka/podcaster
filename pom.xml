@@ -79,9 +79,9 @@
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.19.1</version>
-                <configuration>
-                    <useSystemClassLoader>false</useSystemClassLoader>
-                </configuration>
+                <!--<configuration>-->
+                    <!--<useSystemClassLoader>false</useSystemClassLoader>-->
+                <!--</configuration>-->
 
                 <dependencies>
                     <dependency>
@@ -89,11 +89,6 @@
                         <artifactId>junit-platform-surefire-provider</artifactId>
                         <version>1.0.1</version>
                     </dependency>
-                    <!--<dependency>-->
-                    <!--<groupId>org.junit.jupiter</groupId>-->
-                    <!--<artifactId>junit-jupiter-engine</artifactId>-->
-                    <!--<version>${junit.jupiter.version}</version>-->
-                    <!--</dependency>-->
                 </dependencies>
             </plugin>
 
