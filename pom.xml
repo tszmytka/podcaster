@@ -78,19 +78,34 @@
             <!-- JUnit 5 requires Surefire 2.22.0 -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
+                <version>3.0.0-M1</version>
                 <!--<configuration>-->
-                    <!--<useSystemClassLoader>false</useSystemClassLoader>-->
+                <!--<useSystemClassLoader>false</useSystemClassLoader>-->
                 <!--</configuration>-->
-
-                <dependencies>
-                    <dependency>
-                        <groupId>org.junit.platform</groupId>
-                        <artifactId>junit-platform-surefire-provider</artifactId>
-                        <version>1.0.1</version>
-                    </dependency>
-                </dependencies>
+                <!--<dependencies>-->
+                <!--<dependency>-->
+                <!--<groupId>org.junit.platform</groupId>-->
+                <!--<artifactId>junit-platform-surefire-provider</artifactId>-->
+                <!--<version>1.0.1</version>-->
+                <!--</dependency>-->
+                <!--</dependencies>-->
             </plugin>
+
+            <!-- Awkward but working -->
+            <!--<plugin>-->
+            <!--<artifactId>maven-surefire-plugin</artifactId>-->
+            <!--<version>2.19.1</version>-->
+            <!--<configuration>-->
+            <!--<useSystemClassLoader>false</useSystemClassLoader>-->
+            <!--</configuration>-->
+            <!--<dependencies>-->
+            <!--<dependency>-->
+            <!--<groupId>org.junit.platform</groupId>-->
+            <!--<artifactId>junit-platform-surefire-provider</artifactId>-->
+            <!--<version>1.0.1</version>-->
+            <!--</dependency>-->
+            <!--</dependencies>-->
+            <!--</plugin>-->
 
             <!-- Jar Plugin builds a "slim" jar with only resources attached - no dependencies -->
             <!--<plugin>-->
