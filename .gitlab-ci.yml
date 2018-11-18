@@ -106,5 +106,6 @@ image: maven:3.6-jdk-8
 
 test:
   script:
+    - apt-get update
     - apt-get install -y openjfx
     - 'mvn $MAVEN_CLI_OPTS test'
