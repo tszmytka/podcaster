@@ -102,10 +102,9 @@ cache:
 #  only:
 #    - master
 
-image: maven:3.6-jdk-8
+image: maven:3.5-jdk-8
 
 test:
   script:
-    - apt-get update
-    - apt-get install -y openjfx
+    - apt-get update && apt-get install -y openjfx # workaround for images not containing javafx
     - 'mvn $MAVEN_CLI_OPTS test'
