@@ -75,37 +75,11 @@
                 <version>3.7.0</version>
             </plugin>
 
-            <!-- JUnit 5 requires Surefire 2.22.0 -->
+            <!-- Only ver3.0.0-M1 recognizes JUnit 5 tests with Spring Boot 2.0.6 on the classpath -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.1</version>
-                <!--<configuration>-->
-                <!--<useSystemClassLoader>false</useSystemClassLoader>-->
-                <!--</configuration>-->
-                <!--<dependencies>-->
-                <!--<dependency>-->
-                <!--<groupId>org.junit.platform</groupId>-->
-                <!--<artifactId>junit-platform-surefire-provider</artifactId>-->
-                <!--<version>1.0.1</version>-->
-                <!--</dependency>-->
-                <!--</dependencies>-->
+                <version>3.0.0-M1</version>
             </plugin>
-
-            <!-- Awkward but working -->
-            <!--<plugin>-->
-            <!--<artifactId>maven-surefire-plugin</artifactId>-->
-            <!--<version>2.19.1</version>-->
-            <!--<configuration>-->
-            <!--<useSystemClassLoader>false</useSystemClassLoader>-->
-            <!--</configuration>-->
-            <!--<dependencies>-->
-            <!--<dependency>-->
-            <!--<groupId>org.junit.platform</groupId>-->
-            <!--<artifactId>junit-platform-surefire-provider</artifactId>-->
-            <!--<version>1.0.1</version>-->
-            <!--</dependency>-->
-            <!--</dependencies>-->
-            <!--</plugin>-->
 
             <!-- Jar Plugin builds a "slim" jar with only resources attached - no dependencies -->
             <!--<plugin>-->
