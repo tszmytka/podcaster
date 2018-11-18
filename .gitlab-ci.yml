@@ -104,7 +104,13 @@ cache:
 
 image: maven:3.6-jdk-8
 
-test:
+validate:
+  stage: build
   script:
     - apt-get update && apt-get install -y openjfx # workaround for images not containing javafx
+    - 'mvn $MAVEN_CLI_OPTS validate'
+
+test:
+  stage: test
+  script:
     - 'mvn $MAVEN_CLI_OPTS test'
