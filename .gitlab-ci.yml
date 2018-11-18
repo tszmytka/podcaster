@@ -108,4 +108,4 @@ test:
   script:
     - apt-get update
     - apt-get install -y openjfx
-    - 'mvn $MAVEN_CLI_OPTS compile'
+    - 'mvn $MAVEN_CLI_OPTS test'
