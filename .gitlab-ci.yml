@@ -112,12 +112,16 @@ Build:
 
 Unit Tests:
   stage: test
+  only:
+    - master
   script:
     - apt-get update && apt-get install -y openjfx # workaround for images not containing javafx
     - 'mvn $MAVEN_CLI_OPTS test'
 
 Integration Tests:
   stage: test
+  only:
+    - master
   script:
     - apt-get update && apt-get install -y openjfx # workaround for images not containing javafx
-    - 'mvn $MAVEN_CLI_OPTS verify'
+    - 'mvn $MAVEN_CLI_OPTS verify'/
