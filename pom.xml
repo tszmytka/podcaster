@@ -21,6 +21,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <junit.jupiter.version>5.3.1</junit.jupiter.version>
+        <skip.surefire.tests>false</skip.surefire.tests>
     </properties>
 
     <dependencies>
@@ -77,7 +78,17 @@
 
             <!-- Only ver3.0.0-M1 recognizes JUnit 5 tests with Spring Boot 2.0.6 on the classpath -->
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <configuration>
+                    <skipTests>${skip.surefire.tests}</skipTests>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
                 <version>3.0.0-M1</version>
             </plugin>
 
