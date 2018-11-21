@@ -76,6 +76,7 @@
                 <version>3.7.0</version>
             </plugin>
 
+            <!--For running unit tests-->
             <!-- Only ver3.0.0-M1 recognizes JUnit 5 tests with Spring Boot 2.0.6 on the classpath -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -86,10 +87,32 @@
                 </configuration>
             </plugin>
 
+            <!--For running integration tests-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>3.0.0-M1</version>
+            </plugin>
+
+            <!--For generating code coverage reports-->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- Jar Plugin builds a "slim" jar with only resources attached - no dependencies -->
