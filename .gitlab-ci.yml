@@ -73,6 +73,7 @@ Unit Tests:
     - master
   script:
     - 'mvn $MAVEN_CLI_OPTS test'
+    - cat target/site/jacoco/index.html
 
 Integration Tests:
   stage: test
