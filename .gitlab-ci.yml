@@ -58,26 +58,31 @@ cache:
 #  only:
 #    - master
 
-image: maven:3.6-jdk-8
+# image: maven:3.6-jdk-8
 before_script:
   - apt-get update && apt-get install -y openjfx # workaround for images not containing javafx
 
-Build:
+.build: &build
   stage: build
   script:
     - 'mvn $MAVEN_CLI_OPTS compile'
 
-Unit Tests:
-  stage: test
-  only:
-    - master
-  script:
-    - 'mvn $MAVEN_CLI_OPTS test'
-    - cat target/site/jacoco/index.html
+Build jdk8:
+  <<: *build
+  image: maven:3.6-jdk-8
 
-Integration Tests:
-  stage: test
-  only:
-    - master
-  script:
-    - 'mvn $MAVEN_CLI_OPTS verify -Dskip.surefire.tests'
+
+#Unit Tests:
+#  stage: test
+#  only:
+#    - master
+#  script:
+#    - 'mvn $MAVEN_CLI_OPTS test'
+#    - cat target/site/jacoco/index.html
+#
+#Integration Tests:
+#  stage: test
+#  only:
+#    - master
+#  script:
+#    - 'mvn $MAVEN_CLI_OPTS verify -Dskip.surefire.tests'
