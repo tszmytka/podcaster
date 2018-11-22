@@ -49,10 +49,10 @@ cache:
 
 .jdk8: &jdk8
   image: maven:3.6-jdk-8
-.jdk10: &jdk10
-  image: maven:3.6-jdk-10
 .jdk11: &jdk11
   image: maven:3.6-jdk-11
+.jdk12: &jdk12
+  image: maven:3.6-jdk-12
 
 .build: &build
   stage: build
@@ -90,15 +90,27 @@ Integration Tests jdk8:
   <<: *jdk8
 
 
-Build jdk10:
-  <<: *build
-  <<: *jdk10
+#Build jdk11:
+#  <<: *build
+#  <<: *jdk11
+#
+#Unit Tests jdk11:
+#  <<: *unit-tests
+#  <<: *jdk11
+#
+#Integration Tests jdk11:
+#  <<: *integration-tests
+#  <<: *jdk11
 
-Unit Tests jdk10:
-  <<: *unit-tests
-  <<: *jdk10
 
-Integration Tests jdk10:
-  <<: *integration-tests
-  <<: *jdk10
-
+#Build jdk12:
+#  <<: *build
+#  <<: *jdk12
+#
+#Unit Tests jdk12:
+#  <<: *unit-tests
+#  <<: *jdk12
+#
+#Integration Tests jdk12:
+#  <<: *integration-tests
+#  <<: *jdk12
