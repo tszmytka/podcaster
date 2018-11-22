@@ -13,17 +13,6 @@ cache:
   paths:
     - .m2/repository
 
-# Validate merge requests using JDK8
-#validate:jdk8:
-#  <<: *validate
-#  image: maven:3.3.9-jdk-8
-
-# Verify merge requests using JDK8
-#verify:jdk8:
-#  <<: *verify
-#  image: maven:3.3.9-jdk-8
-
-
 # For `master` branch run `mvn deploy` automatically.
 # Here you need to decide whether you want to use JDK7 or 8.
 # To get this working you need to define a volume while configuring your gitlab-ci-multi-runner.
@@ -60,11 +49,30 @@ cache:
 
 .jdk8: &jdk8
   image: maven:3.6-jdk-8
+.jdk11: &jdk11
+  image: maven:3.6-jdk-11
+.jdk12: &jdk12
+  image: maven:3.6-jdk-12
 
 .build: &build
   stage: build
   script:
     - 'mvn $MAVEN_CLI_OPTS compile'
+
+.unit-tests: &unit-tests
+  stage: test
+  only:
+    - master
+  script:
+    - 'mvn $MAVEN_CLI_OPTS test'
+    - cat target/site/jacoco/index.html
+
+.integration-tests: &integration-tests
+  stage: test
+  only:
+    - master
+  script:
+    - 'mvn $MAVEN_CLI_OPTS verify -Dskip.surefire.tests'
 
 before_script:
   - apt-get update && apt-get install -y openjfx # workaround for images not containing javafx
@@ -73,18 +81,36 @@ Build jdk8:
   <<: *build
   <<: *jdk8
 
+Unit Tests jdk8:
+  <<: *unit-tests
+  <<: *jdk8
 
-#Unit Tests:
-#  stage: test
-#  only:
-#    - master
-#  script:
-#    - 'mvn $MAVEN_CLI_OPTS test'
-#    - cat target/site/jacoco/index.html
-#
-#Integration Tests:
-#  stage: test
-#  only:
-#    - master
-#  script:
-#    - 'mvn $MAVEN_CLI_OPTS verify -Dskip.surefire.tests'
+Integration Tests jdk8:
+  <<: *integration-tests
+  <<: *jdk8
+
+
+Build jdk11:
+  <<: *build
+  <<: *jdk11
+
+Unit Tests jdk11:
+  <<: *unit-tests
+  <<: *jdk11
+
+Integration Tests jdk11:
+  <<: *integration-tests
+  <<: *jdk11
+
+
+Build jdk12:
+  <<: *build
+  <<: *jdk12
+
+Unit Tests jdk12:
+  <<: *unit-tests
+  <<: *jdk12
+
+Integration Tests jdk12:
+  <<: *integration-tests
+  <<: *jdk12
