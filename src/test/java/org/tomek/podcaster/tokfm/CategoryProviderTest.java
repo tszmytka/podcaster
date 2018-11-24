@@ -17,7 +17,6 @@ class CategoryProviderTest {
     @Ignore
     @Test
     void canGetPodcasts() throws Exception {
-        podcastProvider.getPodcasts(new URL("www.example.com"));
-
+        podcastProvider.getPodcasts(new URL("http://www.example.com"));
     }
 }
