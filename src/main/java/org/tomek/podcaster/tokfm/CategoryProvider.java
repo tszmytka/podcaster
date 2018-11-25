@@ -1,9 +1,9 @@
 package org.tomek.podcaster.tokfm;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.tomek.podcaster.parser.jsoup.JsoupConnector;
+import org.tomek.podcaster.parser.jsoup.JsoupDataProvider;
 import org.tomek.podcaster.tokfm.model.Category;
 
 import java.io.IOException;
@@ -11,25 +11,27 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CategoryProvider {
+public class CategoryProvider extends JsoupDataProvider {
     private final URL url;
 
-    public CategoryProvider(URL url) {
+
+    public CategoryProvider(JsoupConnector jsoupConnector, URL url) {
+        super(jsoupConnector);
         this.url = url;
     }
+
 
     public Map<Integer, Category> getCategories() {
         HashMap<Integer, Category> categories = new HashMap<>();
         try {
-            Document document = Jsoup.connect(url.toString()).get();
-            Elements elements = document.select("#tok_audycje_list li.tok_audycje__element");
+            Elements elements = getJsoupConnector().parseDocument(url).select("#tok_audycje_list li.tok_audycje__element");
             for (Element element : elements) {
                 Elements link = element.select(".tok_audycje__prowadzacy");
                 Elements authorLinks = element.select("p.tok_audycje__leader");
                 String[] authors = new String[authorLinks.size()];
                 int i = 0;
                 for (Element authorLink : authorLinks) {
-                    authors[i] = authorLink.text();
+                    authors[i++] = authorLink.text();
                 }
                 Category category = new Category(
                     Integer.valueOf(element.getElementsByClass("tok-podcasts__button").first().attr("data-subscribe_id")),
