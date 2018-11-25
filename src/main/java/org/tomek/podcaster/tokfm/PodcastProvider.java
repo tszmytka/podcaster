@@ -4,6 +4,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.tomek.podcaster.parser.jsoup.JsoupConnector;
+import org.tomek.podcaster.parser.jsoup.JsoupDataProvider;
 import org.tomek.podcaster.tokfm.model.Podcast;
 
 import java.io.IOException;
@@ -11,13 +13,18 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PodcastProvider {
+public class PodcastProvider extends JsoupDataProvider {
+
+
+    public PodcastProvider(JsoupConnector jsoupConnector) {
+        super(jsoupConnector);
+    }
+
 
     public Map<Integer, Podcast> getPodcasts(URL sourceUrl) {
         HashMap<Integer, Podcast> podcasts = new HashMap<>();
         try {
-            Document document = Jsoup.connect(sourceUrl.toString()).get();
-            Elements elements = document.select("#tok-podcasts li.tok-podcasts__podcast");
+            Elements elements = getJsoupConnector().parseDocument(sourceUrl).select("#tok-podcasts li.tok-podcasts__podcast");
             for (Element element : elements) {
                 Element divTime = element.select(".tok-podcasts__row--time").first();
                 Elements spans = divTime.getElementsByTag("span");

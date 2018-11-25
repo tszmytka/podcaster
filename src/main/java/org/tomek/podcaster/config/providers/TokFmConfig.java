@@ -38,7 +38,7 @@ public class TokFmConfig {
 
     @Bean
     public PodcastProvider podcastProvider() {
-        return new PodcastProvider();
+        return new PodcastProvider(jsoupConnector);
     }
 
 
