@@ -24,11 +24,6 @@ public class TokFmConfig {
         this.jsoupConnector = jsoupConnector;
     }
 
-    @Bean
-    public JsoupConnector jsoupConnector() {
-        return new JsoupConnector();
-    }
-
 
     @Bean
     public CategoryProvider categoryProvider() throws MalformedURLException {
