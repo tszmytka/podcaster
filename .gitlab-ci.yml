@@ -67,7 +67,7 @@ cache:
   only:
     - master
   script:
-    - 'mvn $MAVEN_CLI_OPTS test'
+    - 'mvn $MAVEN_CLI_OPTS $JAVA_VERSION test'
     - cat target/site/jacoco/index.html
 
 .integration-tests: &integration-tests
