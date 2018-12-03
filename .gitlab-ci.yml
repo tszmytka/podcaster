@@ -78,8 +78,11 @@ before_script:
   - apt-get update && apt-get install -y openjfx # workaround for images not containing javafx
 
 Build jdk8:
-  <<: *build
+  #  <<: *build
   <<: *jdk8
+  stage: build
+  script:
+    - 'mvn $MAVEN_CLI_OPTS -Djava.version=8 compile'
 
 Unit Tests jdk8:
   <<: *unit-tests
