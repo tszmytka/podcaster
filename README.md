@@ -16,3 +16,8 @@ Application meant to allow searching and automatically finding podcasts and prov
 * Spring Boot
 * Gson
 * jsoup
+
+
+## Running in Java 11
+The following need to be specified in order to run the application with Java 11: `--module-path <path_to_javafx_runtime> --add-modules=javafx.controls`
+* https://openjfx.io/openjfx-docs/#install-javafx
