@@ -90,14 +90,14 @@ Integration Tests jdk8:
   <<: *jdk8
 
 
-#Build jdk11:
-#  <<: *build
-#  <<: *jdk11
-#
-#Unit Tests jdk11:
-#  <<: *unit-tests
-#  <<: *jdk11
-#
+Build jdk11:
+  <<: *build
+  <<: *jdk11
+
+Unit Tests jdk11:
+  <<: *unit-tests
+  <<: *jdk11
+
 #Integration Tests jdk11:
 #  <<: *integration-tests
 #  <<: *jdk11
