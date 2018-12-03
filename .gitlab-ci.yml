@@ -6,6 +6,7 @@ variables:
   # when running from the command line.
   # `installAtEnd` and `deployAtEnd` are only effective with recent version of the corresponding plugins.
   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  JAVA_VERSION: ""
 
 # Cache downloaded dependencies and plugins between builds.
 # To keep cache across branches add 'key: "$CI_JOB_NAME"'
@@ -49,6 +50,8 @@ cache:
 
 .jdk8: &jdk8
   image: maven:3.6-jdk-8
+  variables:
+    JAVA_VERSION: "-Djava.version=8"
 .jdk11: &jdk11
   image: maven:3.6-jdk-11
 .jdk12: &jdk12
@@ -57,7 +60,7 @@ cache:
 .build: &build
   stage: build
   script:
-    - 'mvn $MAVEN_CLI_OPTS compile'
+    - 'mvn $MAVEN_CLI_OPTS $JAVA_VERSION compile'
 
 .unit-tests: &unit-tests
   stage: test
@@ -72,17 +75,14 @@ cache:
   only:
     - master
   script:
-    - 'mvn $MAVEN_CLI_OPTS verify -Dskip.surefire.tests'
+    - 'mvn $MAVEN_CLI_OPTS $JAVA_VERSION verify -Dskip.surefire.tests'
 
 before_script:
   - apt-get update && apt-get install -y openjfx # workaround for images not containing javafx
 
 Build jdk8:
-  #  <<: *build
+  <<: *build
   <<: *jdk8
-  stage: build
-  script:
-    - 'mvn $MAVEN_CLI_OPTS -Djava.version=8 compile'
 
 Unit Tests jdk8:
   <<: *unit-tests
@@ -101,9 +101,9 @@ Unit Tests jdk11:
   <<: *unit-tests
   <<: *jdk11
 
-#Integration Tests jdk11:
-#  <<: *integration-tests
-#  <<: *jdk11
+Integration Tests jdk11:
+  <<: *integration-tests
+  <<: *jdk11
 
 
 #Build jdk12:
