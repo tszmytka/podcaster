@@ -56,6 +56,8 @@ cache:
   image: maven:3.6-jdk-11
 .jdk12: &jdk12
   image: maven:3.6-jdk-12
+  variables:
+    JAVA_VERSION: "-Djava.version=12"
 
 .build: &build
   stage: build
@@ -106,14 +108,14 @@ Integration Tests jdk11:
   <<: *jdk11
 
 
-#Build jdk12:
-#  <<: *build
-#  <<: *jdk12
-#
-#Unit Tests jdk12:
-#  <<: *unit-tests
-#  <<: *jdk12
-#
-#Integration Tests jdk12:
-#  <<: *integration-tests
-#  <<: *jdk12
+Build jdk12:
+  <<: *build
+  <<: *jdk12
+
+Unit Tests jdk12:
+  <<: *unit-tests
+  <<: *jdk12
+
+Integration Tests jdk12:
+  <<: *integration-tests
+  <<: *jdk12
