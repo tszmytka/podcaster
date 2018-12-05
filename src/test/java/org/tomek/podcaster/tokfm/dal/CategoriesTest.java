@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 import org.tomek.podcaster.parser.jsoup.JsoupConnector;
 import org.tomek.podcaster.tokfm.model.Category;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
@@ -41,7 +42,7 @@ class CategoriesTest {
 
 
     @Test
-    void canGetPodcasts() throws Exception {
+    void canFetchCategories() throws Exception {
         Document document = Mockito.mock(Document.class);
         when(jsoupConnector.parseDocument(eq(url))).thenReturn(document);
 
@@ -62,15 +63,15 @@ class CategoriesTest {
         String picUrl1 = "/img.png";
         rows.add(mockCategory(String.valueOf(id1), authors1, categoryName1, categoryUrl1, picUrl1));
 
-        Map<Integer, Category> categoriesMap = categories.fetchCategories();
-        assertEquals(2, categoriesMap.size());
-        Category category0 = categoriesMap.get(id0);
+        Map<Integer, Category> categoriesGotten = categories.fetchCategories();
+        assertEquals(2, categoriesGotten.size());
+        Category category0 = categoriesGotten.get(id0);
         assertEquals(author0, category0.getAuthors()[0]);
         assertEquals(categoryName0, category0.getName());
         assertEquals(categoryUrl0, category0.getUrl());
         assertEquals(picUrl0, category0.getPicHref());
 
-        Category category1 = categoriesMap.get(id1);
+        Category category1 = categoriesGotten.get(id1);
         // disregards order
         assertThat(Arrays.asList(category1.getAuthors()), containsInAnyOrder(authors1));
         // also checks order
@@ -78,6 +79,13 @@ class CategoriesTest {
         assertEquals(categoryName1, category1.getName());
         assertEquals(categoryUrl1, category1.getUrl());
         assertEquals(picUrl1, category1.getPicHref());
+    }
+
+
+    @Test
+    void willReturnNullOnIOException() throws Exception {
+        when(jsoupConnector.parseDocument(eq(url))).thenThrow(IOException.class);
+        assertNull(categories.fetchCategories());
     }
 
 
