@@ -26,8 +26,8 @@ public class PodcasterApplication extends Application {
 
 //    private static void getPodcasts() throws MalformedURLException {
 //        CategoryProvider categoryProvider = new CategoryProvider(new URL("https://audycje.tokfm.pl/audycje-tokfm"));
-////        Map<Integer, Category> categories = categoryProvider.getCategories();
-//        Category category = categoryProvider.getCategory(20);
+////        Map<Integer, Categories> categories = categoryProvider.getCategories();
+//        Categories category = categoryProvider.getCategory(20);
 //        PodcastProvider podcastProvider = new PodcastProvider(new URL(category.getUrl()));
 //        Map<Integer, Podcast> podcasts = podcastProvider.getPodcasts();
 //        System.out.println(podcasts);

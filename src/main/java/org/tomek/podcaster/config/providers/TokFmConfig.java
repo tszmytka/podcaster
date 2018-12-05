@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.tomek.podcaster.parser.jsoup.JsoupConnector;
 import org.tomek.podcaster.tokfm.CategoryProvider;
 import org.tomek.podcaster.tokfm.PodcastProvider;
+import org.tomek.podcaster.tokfm.dal.Categories;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -26,8 +27,14 @@ public class TokFmConfig {
 
 
     @Bean
-    public CategoryProvider categoryProvider() throws MalformedURLException {
-        return new CategoryProvider(jsoupConnector, new URL(categoriesUrl));
+    public Categories categories() throws MalformedURLException {
+        return new Categories(jsoupConnector, new URL(categoriesUrl));
+    }
+
+
+    @Bean
+    public CategoryProvider categoryProvider(Categories categories) {
+        return new CategoryProvider(categories);
     }
 
 
