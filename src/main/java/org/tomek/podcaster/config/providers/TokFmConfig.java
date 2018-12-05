@@ -8,6 +8,7 @@ import org.tomek.podcaster.parser.jsoup.JsoupConnector;
 import org.tomek.podcaster.tokfm.CategoryProvider;
 import org.tomek.podcaster.tokfm.PodcastProvider;
 import org.tomek.podcaster.tokfm.dal.Categories;
+import org.tomek.podcaster.tokfm.dal.Podcasts;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -39,8 +40,14 @@ public class TokFmConfig {
 
 
     @Bean
-    public PodcastProvider podcastProvider() {
-        return new PodcastProvider(jsoupConnector);
+    public Podcasts podcasts() {
+        return new Podcasts(jsoupConnector);
+    }
+
+
+    @Bean
+    public PodcastProvider podcastProvider(Podcasts podcasts) {
+        return new PodcastProvider(podcasts);
     }
 
 
