@@ -9,7 +9,12 @@ import org.tomek.podcaster.tokfm.CategoryProvider;
 import org.tomek.podcaster.tokfm.PodcastProvider;
 import org.tomek.podcaster.tokfm.dal.Categories;
 import org.tomek.podcaster.tokfm.dal.Podcasts;
+import org.tomek.podcaster.tokfm.model.Category;
 
+import javax.cache.Caching;
+import javax.cache.configuration.MutableConfiguration;
+import javax.cache.expiry.CreatedExpiryPolicy;
+import javax.cache.expiry.Duration;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -35,7 +40,12 @@ public class TokFmConfig {
 
     @Bean
     public CategoryProvider categoryProvider(Categories categories) {
-        return new CategoryProvider(categories);
+        // todo Move cache setup to a separate bean and use ehcache as backend
+        MutableConfiguration<Integer, Category> config = new MutableConfiguration<Integer, Category>()
+            .setTypes(Integer.class, Category.class)
+            .setStoreByValue(false)
+            .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(Duration.ONE_MINUTE));
+        return new CategoryProvider(categories, Caching.getCachingProvider().getCacheManager().createCache("jCache", config));
     }
 
 
