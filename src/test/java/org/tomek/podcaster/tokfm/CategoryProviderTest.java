@@ -11,6 +11,7 @@ import javax.cache.Cache;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -35,6 +36,7 @@ class CategoryProviderTest {
     @Test
     void canGetCategoriesWithColdCache() {
         HashMap<Integer, Category> categoriesFetched = new HashMap<>();
+        categoriesFetched.put(1, new Category(1, "abc123", null, "example.com", "pic.png"));
         when(categories.fetchCategories()).thenReturn(categoriesFetched);
         when(cache.iterator()).thenReturn(Collections.emptyListIterator());
         assertEquals(categoriesFetched, categoryProvider.getCategories());
@@ -48,7 +50,10 @@ class CategoryProviderTest {
         Category category0 = mock(Category.class);
         cachedCategories.add(new CacheEntry(0, category0));
         when(cache.iterator()).thenReturn(cachedCategories.iterator());
-        verify(categories, never()).fetchCategories();
+        Map<Integer, Category> categoriesGotten = categoryProvider.getCategories();
+        assertEquals(1, categoriesGotten.size());
+        assertEquals(category0, categoriesGotten.get(0));
+        verify(this.categories, never()).fetchCategories();
     }
 
 
