@@ -11,11 +11,13 @@ Application meant to allow searching and automatically finding podcasts and prov
 
 
 ## Technologies/libraries used
-* Java 8
+* Java 11
 * JavaFx
 * Spring Boot
 * Gson
 * jsoup
+* JCache
+* Ehcache
 
 
 ## Running in Java 11
