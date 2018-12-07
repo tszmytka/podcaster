@@ -3,6 +3,7 @@ package org.tomek.podcaster.tokfm;
 import org.tomek.podcaster.tokfm.dal.Podcasts;
 import org.tomek.podcaster.tokfm.model.Podcast;
 
+import javax.cache.Cache;
 import java.net.URL;
 import java.util.Map;
 
@@ -10,11 +11,20 @@ public class PodcastProvider {
 
     private final Podcasts podcasts;
 
-    public PodcastProvider(Podcasts podcasts) {
+    private final Cache<String, Map<Integer, Podcast>> cache;
+
+    public PodcastProvider(Podcasts podcasts, Cache<String, Map<Integer, Podcast>> cache) {
         this.podcasts = podcasts;
+        this.cache = cache;
     }
 
     public Map<Integer, Podcast> getPodcasts(URL sourceUrl) {
-        return podcasts.fetchPodcasts(sourceUrl);
+        String cacheKey = sourceUrl.toString();
+        Map<Integer, Podcast> cachedPodcasts = cache.get(cacheKey);
+        if (cachedPodcasts == null) {
+            cachedPodcasts = podcasts.fetchPodcasts(sourceUrl);
+            cache.put(cacheKey, cachedPodcasts);
+        }
+        return cachedPodcasts;
     }
 }

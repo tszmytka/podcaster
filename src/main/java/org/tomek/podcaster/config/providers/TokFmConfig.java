@@ -10,13 +10,16 @@ import org.tomek.podcaster.tokfm.PodcastProvider;
 import org.tomek.podcaster.tokfm.dal.Categories;
 import org.tomek.podcaster.tokfm.dal.Podcasts;
 import org.tomek.podcaster.tokfm.model.Category;
+import org.tomek.podcaster.tokfm.model.Podcast;
 
-import javax.cache.Caching;
+import javax.cache.Cache;
+import javax.cache.CacheManager;
 import javax.cache.configuration.MutableConfiguration;
 import javax.cache.expiry.CreatedExpiryPolicy;
 import javax.cache.expiry.Duration;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
 
 @Configuration
 @Component
@@ -31,35 +34,42 @@ public class TokFmConfig {
         this.jsoupConnector = jsoupConnector;
     }
 
-
     @Bean
     public Categories categories() throws MalformedURLException {
         return new Categories(jsoupConnector, new URL(categoriesUrl));
     }
 
-
     @Bean
-    public CategoryProvider categoryProvider(Categories categories) {
-        // todo Move cache setup to a separate bean and use ehcache as backend
+    public Cache<Integer, Category> categoryCache(CacheManager cacheManager) {
         MutableConfiguration<Integer, Category> config = new MutableConfiguration<Integer, Category>()
             .setTypes(Integer.class, Category.class)
             .setStoreByValue(false)
             .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(Duration.ONE_MINUTE));
-        return new CategoryProvider(categories, Caching.getCachingProvider().getCacheManager().createCache("jCache", config));
+        return cacheManager.createCache(Category.class.getName(), config);
     }
 
+    @Bean
+    public CategoryProvider categoryProvider(Categories categories, Cache<Integer, Category> categoryCache) {
+        return new CategoryProvider(categories, categoryCache);
+    }
 
     @Bean
     public Podcasts podcasts() {
         return new Podcasts(jsoupConnector);
     }
 
-
     @Bean
-    public PodcastProvider podcastProvider(Podcasts podcasts) {
-        return new PodcastProvider(podcasts);
+    public Cache<String, Map<Integer, Podcast>> podcastCache(CacheManager cacheManager) {
+        MutableConfiguration<String, Map<Integer, Podcast>> config = new MutableConfiguration<String, Map<Integer, Podcast>>()
+            .setStoreByValue(false)
+            .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(Duration.ONE_MINUTE));
+        return cacheManager.createCache(Podcast.class.getName(), config);
     }
 
+    @Bean
+    public PodcastProvider podcastProvider(Podcasts podcasts, Cache<String, Map<Integer, Podcast>> podcastCache) {
+        return new PodcastProvider(podcasts, podcastCache);
+    }
 
     public void setCategoriesUrl(String categoriesUrl) {
         this.categoriesUrl = categoriesUrl;

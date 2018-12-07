@@ -19,7 +19,6 @@ public class CategoryProvider {
         this.cache = cache;
     }
 
-
     public Map<Integer, Category> getCategories() {
         HashMap<Integer, Category> cachedCategories = new HashMap<>();
         for (Cache.Entry<Integer, Category> entry : cache) {
@@ -31,7 +30,6 @@ public class CategoryProvider {
         }
         return cachedCategories;
     }
-
 
     public Category getCategory(int id) {
         return getCategories().get(id);
