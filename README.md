@@ -5,9 +5,10 @@
 Application meant to allow searching and automatically finding podcasts and providing them to the configured media player.
 
 ## Main tasks
-1. Find the appropriate podcast.
-2. Obtain the correct url.
-3. Open it up in the player.
+1. Present list of categories, podcasts etc.
+2. Assist in navigating as a menu-like structure.
+3. Allow user-friendly selection.
+4. Open it up in the player.
 
 
 ## Technologies/libraries used
