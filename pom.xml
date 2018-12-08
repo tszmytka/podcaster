@@ -6,7 +6,7 @@
 
     <groupId>tomek.org</groupId>
     <artifactId>podcaster</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.3-SNAPSHOT</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -17,12 +17,13 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>8</java.version>
+        <java.version>11</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <junit.jupiter.version>5.3.1</junit.jupiter.version>
         <skip.surefire.tests>false</skip.surefire.tests>
         <javafx.version>11.0.1</javafx.version>
+        <jaxb.version>2.3.0</jaxb.version>
     </properties>
 
     <dependencies>
@@ -35,28 +36,28 @@
         <!--<artifactId>spring-boot-starter-actuator</artifactId>-->
         <!--</dependency>-->
 
-        <!-- For JavaFX -->
+        <!-- JavaFX -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
         </dependency>
 
-        <!-- For building json http requests and reading json responses -->
+        <!-- Building json http requests and reading json responses -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.8.5</version>
         </dependency>
 
-        <!-- For parsing html -->
+        <!-- Parsing html -->
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>1.11.3</version>
         </dependency>
 
-        <!-- For caching -->
+        <!-- Caching -->
         <dependency>
             <groupId>javax.cache</groupId>
             <artifactId>cache-api</artifactId>
@@ -68,6 +69,29 @@
             <version>3.6.1</version>
         </dependency>
 
+        <!-- Parsing xml (config files) -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+        <!-- Testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
