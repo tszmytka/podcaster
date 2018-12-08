@@ -1,6 +1,8 @@
 package org.tomek.podcaster.tokfm.model;
 
-public class Podcast {
+import java.io.Serializable;
+
+public class Podcast implements Serializable {
     private final int id;
     private final String title;
     private final int duration;

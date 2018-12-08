@@ -13,10 +13,6 @@ import org.tomek.podcaster.tokfm.model.Category;
 import org.tomek.podcaster.tokfm.model.Podcast;
 
 import javax.cache.Cache;
-import javax.cache.CacheManager;
-import javax.cache.configuration.MutableConfiguration;
-import javax.cache.expiry.CreatedExpiryPolicy;
-import javax.cache.expiry.Duration;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
@@ -47,14 +43,6 @@ public class TokFmConfig {
     @Bean
     public Podcasts podcasts() {
         return new Podcasts(jsoupConnector);
-    }
-
-    @Bean
-    public Cache<String, Map<Integer, Podcast>> podcastCache(CacheManager cacheManager) {
-        MutableConfiguration<String, Map<Integer, Podcast>> config = new MutableConfiguration<String, Map<Integer, Podcast>>()
-            .setStoreByValue(false)
-            .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(Duration.ONE_MINUTE));
-        return cacheManager.createCache(Podcast.class.getName(), config);
     }
 
     @Bean
