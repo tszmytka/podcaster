@@ -40,15 +40,6 @@ public class TokFmConfig {
     }
 
     @Bean
-    public Cache<Integer, Category> categoryCache(CacheManager cacheManager) {
-        MutableConfiguration<Integer, Category> config = new MutableConfiguration<Integer, Category>()
-            .setTypes(Integer.class, Category.class)
-            .setStoreByValue(false)
-            .setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(Duration.ONE_MINUTE));
-        return cacheManager.createCache(Category.class.getName(), config);
-    }
-
-    @Bean
     public CategoryProvider categoryProvider(Categories categories, Cache<Integer, Category> categoryCache) {
         return new CategoryProvider(categories, categoryCache);
     }

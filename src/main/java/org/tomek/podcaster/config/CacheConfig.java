@@ -2,24 +2,24 @@ package org.tomek.podcaster.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.tomek.podcaster.tokfm.model.Category;
 
+import javax.cache.Cache;
 import javax.cache.CacheManager;
 import javax.cache.Caching;
+import java.net.URISyntaxException;
 
 @Configuration
 public class CacheConfig {
 
-    private final String dir = "data/cache";
+    @Bean
+    public CacheManager cacheManager() throws URISyntaxException {
+        return Caching.getCachingProvider().getCacheManager(getClass().getResource("/ehcache.xml").toURI(), getClass().getClassLoader());
+    }
 
 
     @Bean
-    public CacheManager cacheManager() {
-        // todo this works but how to configure max disk space used?
-//        EhcacheCachingProvider ehCacheProvider = (EhcacheCachingProvider) Caching.getCachingProvider();
-//        DefaultConfiguration ehCacheConfig = new DefaultConfiguration(ehCacheProvider.getDefaultClassLoader(), new DefaultPersistenceConfiguration(new File(dir)));
-//        ehCacheProvider.getCacheManager(ehCacheProvider.getDefaultURI(), ehCacheConfig);
-//        return ehCacheProvider.getCacheManager(ehCacheProvider.getDefaultURI(), ehCacheConfig);
-
-        return Caching.getCachingProvider().getCacheManager();
+    public Cache<Integer, Category> categoryCache(CacheManager cacheManager) {
+        return cacheManager.getCache(Category.class.getName());
     }
 }
