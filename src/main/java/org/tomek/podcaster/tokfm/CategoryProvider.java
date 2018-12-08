@@ -20,6 +20,10 @@ public class CategoryProvider {
     }
 
     public Map<Integer, Category> getCategories() {
+        // multi paste ctrl+shift+v
+        // templates ctrl+alt+shift+j
+        // refactor this ctrl+alt+shift+t
+
         HashMap<Integer, Category> cachedCategories = new HashMap<>();
         for (Cache.Entry<Integer, Category> entry : cache) {
             cachedCategories.put(entry.getKey(), entry.getValue());

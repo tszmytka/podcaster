@@ -6,9 +6,6 @@ import org.tomek.podcaster.controller.Front;
 import org.tomek.podcaster.tokfm.CategoryProvider;
 import org.tomek.podcaster.tokfm.PodcastProvider;
 
-import javax.cache.CacheManager;
-import javax.cache.Caching;
-
 @Configuration
 public class ApplicationConfig {
     private final CategoryProvider categoryProvider;
