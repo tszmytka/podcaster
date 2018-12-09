@@ -26,11 +26,14 @@ public class Podcasts extends JsoupDataProvider {
                 Element divTime = element.select(".tok-podcasts__row--time").first();
                 Elements spans = divTime.getElementsByTag("span");
                 String[] durationElements = spans.get(0).text().split(":");
-                Elements guestLinks = spans.get(1).select("a");
-                String[] guests = new String[guestLinks.size()];
-                int i = 0;
-                for (Element guestLink : guestLinks) {
-                    guests[i++] = guestLink.text();
+                String[] guests = new String[0];
+                if (spans.size() > 1) {
+                    Elements guestLinks = spans.get(1).select("a");
+                    guests = new String[guestLinks.size()];
+                    int i = 0;
+                    for (Element guestLink : guestLinks) {
+                        guests[i++] = guestLink.text();
+                    }
                 }
                 int duration = Integer.valueOf(durationElements[0]) * 60 + Integer.valueOf(durationElements[1]);
                 Podcast podcast = new Podcast(

@@ -43,20 +43,28 @@ class PodcastsTest {
         Elements rows = new Elements();
         when(document.select(eq("#tok-podcasts li.tok-podcasts__podcast"))).thenReturn(rows);
 
+        // Regular podcast with 1 guest
         int id0 = 213;
         String title0 = "Unit test podcast";
         String duration0 = "5:26";
         String[] guests0 =  {"John Doe 1"};
         rows.add(mockPodcast(String.valueOf(id0), title0, duration0, guests0));
 
+        // Podcast with 2 guests
         int id1 = 958439;
         String title1 = "Podcast 2";
         String duration1 = "3:14";
         String[] guests1 =  {"Johny A.", "John Doe 1"};
         rows.add(mockPodcast(String.valueOf(id1), title1, duration1, guests1));
 
+        // Podcast with no guests
+        int id2 = 746489;
+        String title2 = "Podcast with no guests";
+        String duration2 = "11:55";
+        rows.add(mockPodcast(String.valueOf(id2), title2, duration2));
+
         Map<Integer, Podcast> podcastsGotten = podcasts.fetchPodcasts(url);
-        assertEquals(2, podcastsGotten.size());
+        assertEquals(3, podcastsGotten.size());
 
         Podcast podcast0 = podcastsGotten.get(id0);
         assertEquals(id0, podcast0.getId());
@@ -69,8 +77,13 @@ class PodcastsTest {
         assertEquals(title1, podcast1.getTitle());
         assertEquals(3 * 60 + 14, podcast1.getDuration());
         assertArrayEquals(guests1, podcast1.getGuests());
-    }
 
+        Podcast podcast2 = podcastsGotten.get(id2);
+        assertEquals(id2, podcast2.getId());
+        assertEquals(title2, podcast2.getTitle());
+        assertEquals(11 * 60 + 55, podcast2.getDuration());
+        assertEquals(0, podcast2.getGuests().length);
+    }
 
     @Test
     void willReturnNullOnIOException() throws Exception {
@@ -79,10 +92,12 @@ class PodcastsTest {
         assertNull(podcasts.fetchPodcasts(url));
     }
 
+    private static Element mockPodcast(String identifier, String title, String duration) {
+        return mockPodcast(identifier, title, duration, new Elements());
+    }
 
-    private static Element mockPodcast(String identifier, String title, String duration, String[] guests) {
+    private static Element mockPodcast(String identifier, String title, String duration, Elements spans) {
         Element element = mock(Element.class);
-
         // build identifier
         Elements buttonPlay = mock(Elements.class);
         when(element.select(eq("button.tok-podcasts__button--play"))).thenReturn(buttonPlay);
@@ -100,15 +115,23 @@ class PodcastsTest {
         when(element.select(eq(".tok-podcasts__row--time"))).thenReturn(divsTime);
         Element divTime = mock(Element.class);
         when(divsTime.first()).thenReturn(divTime);
-        Elements spans = mock(Elements.class);
         when(divTime.getElementsByTag(eq("span"))).thenReturn(spans);
         Element span = mock(Element.class);
-        when(spans.get(eq(0))).thenReturn(span);
+        spans.add(span);
         when(span.text()).thenReturn(duration);
+        return element;
+    }
 
-        // build guests
+    private static Element mockPodcast(String identifier, String title, String duration, String[] guests) {
+        Elements spans = new Elements();
+        Element element = mockPodcast(identifier, title, duration, spans);
+        mockPodcastGuests(guests, spans);
+        return element;
+    }
+
+    private static void mockPodcastGuests(String[] guests, Elements spans) {
         Element linksDiv = mock(Element.class);
-        when(spans.get(eq(1))).thenReturn(linksDiv);
+        spans.add(linksDiv);
         Elements guestLinks = new Elements();
         when(linksDiv.select(eq("a"))).thenReturn(guestLinks);
         for (String guest : guests) {
@@ -116,7 +139,5 @@ class PodcastsTest {
             guestLinks.add(guestLink);
             when(guestLink.text()).thenReturn(guest);
         }
-
-        return element;
     }
 }
