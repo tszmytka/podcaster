@@ -22,14 +22,4 @@ public class PodcasterApplication extends Application {
         ConfigurableApplicationContext context = SpringApplication.run(PodcasterApplication.class, cmdArgs);
         context.getBean(Front.class).render(primaryStage);
     }
-
-
-//    private static void getPodcasts() throws MalformedURLException {
-//        CategoryProvider categoryProvider = new CategoryProvider(new URL("https://audycje.tokfm.pl/audycje-tokfm"));
-////        Map<Integer, Categories> categories = categoryProvider.getCategories();
-//        Categories category = categoryProvider.getCategory(20);
-//        PodcastProvider podcastProvider = new PodcastProvider(new URL(category.getUrl()));
-//        Map<Integer, Podcast> podcasts = podcastProvider.getPodcasts();
-//        System.out.println(podcasts);
-//    }
 }
