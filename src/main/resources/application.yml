@@ -1,3 +1,5 @@
 providers:
   tokfm:
     categories-url: https://audycje.tokfm.pl/audycje-tokfm
+logging:
+  file: data/log/application.log

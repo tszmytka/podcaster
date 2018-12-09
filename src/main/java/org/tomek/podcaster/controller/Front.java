@@ -11,6 +11,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tomek.podcaster.runner.PodcastPlayerRunner;
 import org.tomek.podcaster.tokfm.CategoryProvider;
 import org.tomek.podcaster.tokfm.PodcastProvider;
@@ -25,6 +27,7 @@ import java.net.URL;
 import java.util.Properties;
 
 public class Front {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Front.class);
     private static final String PODCASTER_PROPERTIES = "podcaster.properties";
     private final CategoryProvider categoryProvider;
     private final PodcastProvider podcastProvider;
@@ -87,7 +90,7 @@ public class Front {
                     getButtonPlay().setDisable(true);
                     lvPodcasts.getItems().setAll(podcastProvider.getPodcasts(new URL(categoryNew.getUrl())).values());
                 } catch (MalformedURLException e) {
-                    //
+                    LOGGER.debug("Invalid url provided", e);
                 }
             });
         }

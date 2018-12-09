@@ -37,6 +37,13 @@
         <!--<artifactId>spring-boot-starter-actuator</artifactId>-->
         <!--</dependency>-->
 
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+
         <!-- JavaFX -->
         <dependency>
             <groupId>org.openjfx</groupId>
