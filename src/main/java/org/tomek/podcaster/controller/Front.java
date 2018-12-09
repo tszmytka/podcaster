@@ -25,16 +25,18 @@ public class Front {
     private final CategoryProvider categoryProvider;
     private final PodcastProvider podcastProvider;
     private final PodcastUrlProvider podcastUrlProvider;
+    private final PodcastPlayerRunner podcastPlayerRunner;
 
     private ListView<Category> lvCategories;
     private ListView<Podcast> lvPodcasts;
     private Button buttonPlay;
 
 
-    public Front(CategoryProvider categoryProvider, PodcastProvider podcastProvider, PodcastUrlProvider podcastUrlProvider) {
+    public Front(CategoryProvider categoryProvider, PodcastProvider podcastProvider, PodcastUrlProvider podcastUrlProvider, PodcastPlayerRunner podcastPlayerRunner) {
         this.categoryProvider = categoryProvider;
         this.podcastProvider = podcastProvider;
         this.podcastUrlProvider = podcastUrlProvider;
+        this.podcastPlayerRunner = podcastPlayerRunner;
     }
 
 
@@ -103,9 +105,8 @@ public class Front {
             buttonPlay.setDisable(true);
             buttonPlay.setOnMouseClicked(event -> {
                 Podcast podcast = getLvPodcasts().getSelectionModel().getSelectedItem();
-                // todo get PodcastPlayerRunner from a bean
-                PodcastPlayerRunner runner = new PodcastPlayerRunner("C:\\Program Files\\VideoLAN\\VLC\\vlc.exe", podcastUrlProvider.getPodcastUrl(String.valueOf( podcast.getId())));
-                runner.run();
+                podcastPlayerRunner.setPodcastPath(podcastUrlProvider.getPodcastUrl(String.valueOf(podcast.getId())));
+                podcastPlayerRunner.run();
                 Platform.exit();
             });
         }

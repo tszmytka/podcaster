@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         ListProvider listProvider = new ListProvider("https://audycje.tokfm.pl/audycja/Poranek-Jacek-Zakowski/120");
         TokFmFinder finder = new TokFmFinder(listProvider.findNewestId());
-        PodcastPlayerRunner runner = new PodcastPlayerRunner("C:\\Program Files\\VideoLAN\\VLC\\vlc.exe", finder.findPodcastUrl());
-        runner.run();
+//        PodcastPlayerRunner runner = new PodcastPlayerRunner("C:\\Program Files\\VideoLAN\\VLC\\vlc.exe", finder.findPodcastUrl());
+//        runner.run();
     }
 }

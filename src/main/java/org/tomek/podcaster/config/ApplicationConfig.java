@@ -3,6 +3,7 @@ package org.tomek.podcaster.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.tomek.podcaster.controller.Front;
+import org.tomek.podcaster.runner.PodcastPlayerRunner;
 import org.tomek.podcaster.tokfm.CategoryProvider;
 import org.tomek.podcaster.tokfm.PodcastProvider;
 import org.tomek.podcaster.tokfm.PodcastUrlProvider;
@@ -22,7 +23,13 @@ public class ApplicationConfig {
 
 
     @Bean
-    public Front front() {
-        return new Front(categoryProvider, podcastProvider, podcastUrlProvider);
+    public Front front(PodcastPlayerRunner podcastPlayerRunner) {
+        return new Front(categoryProvider, podcastProvider, podcastUrlProvider, podcastPlayerRunner);
+    }
+
+
+    @Bean
+    public PodcastPlayerRunner podcastPlayerRunner() {
+        return new PodcastPlayerRunner("C:\\Program Files\\VideoLAN\\VLC\\vlc.exe");
     }
 }
