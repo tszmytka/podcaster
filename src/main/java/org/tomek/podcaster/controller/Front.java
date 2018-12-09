@@ -71,7 +71,7 @@ public class Front {
         if (lvCategories == null) {
             lvCategories = new ListView<>();
             lvCategories.getItems().addAll(categoryProvider.getCategories().values());
-            lvCategories.setCellFactory(param -> new ListCell<>() {
+            lvCategories.setCellFactory(param -> new ListCell<Category>() {
                 @Override
                 protected void updateItem(Category category, boolean empty) {
                     super.updateItem(category, empty);
@@ -99,7 +99,7 @@ public class Front {
             lvPodcasts = new ListView<>();
             lvPodcasts.setDisable(true);
             lvPodcasts.setMinWidth(450);
-            lvPodcasts.setCellFactory(param -> new ListCell<>() {
+            lvPodcasts.setCellFactory(param -> new ListCell<Podcast>() {
                 @Override
                 protected void updateItem(Podcast podcast, boolean empty) {
                     super.updateItem(podcast, empty);
