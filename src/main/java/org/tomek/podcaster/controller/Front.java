@@ -1,6 +1,8 @@
 package org.tomek.podcaster.controller;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -61,13 +63,13 @@ public class Front {
                 }
             });
             lvCategories.setMinWidth(300);
-            lvCategories.setOnMouseClicked(event -> {
-                Category category = lvCategories.getSelectionModel().getSelectedItem();
+            lvCategories.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+            lvCategories.getSelectionModel().selectedItemProperty().addListener((observableValue, categoryOld, categoryNew) -> {
                 try {
                     ListView<Podcast> lvPodcasts = getLvPodcasts();
                     lvPodcasts.setDisable(false);
                     getButtonPlay().setDisable(true);
-                    lvPodcasts.getItems().setAll(podcastProvider.getPodcasts(new URL(category.getUrl())).values());
+                    lvPodcasts.getItems().setAll(podcastProvider.getPodcasts(new URL(categoryNew.getUrl())).values());
                 } catch (MalformedURLException e) {
                     //
                 }
