@@ -19,6 +19,7 @@ import java.net.URL;
 import java.util.Properties;
 
 public class Front {
+    private static final String PODCASTER_PROPERTIES = "podcaster.properties";
     private final CategoryProvider categoryProvider;
     private final PodcastProvider podcastProvider;
 
@@ -117,7 +118,7 @@ public class Front {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("About");
             Properties properties = new Properties();
-            try (InputStream resourceAsStream = getClass().getResourceAsStream("/podcaster.properties")) {
+            try (InputStream resourceAsStream = getClass().getResourceAsStream("/" + PODCASTER_PROPERTIES)) {
                 properties.load(resourceAsStream);
             } catch (IOException e) {
                 //
