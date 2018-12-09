@@ -1,12 +1,18 @@
 package org.tomek.podcaster.controller;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.tomek.podcaster.runner.PodcastPlayerRunner;
 import org.tomek.podcaster.tokfm.CategoryProvider;
 import org.tomek.podcaster.tokfm.PodcastProvider;
@@ -102,12 +108,19 @@ public class Front {
     private Button getButtonPlay() {
         if (buttonPlay == null) {
             buttonPlay = new Button("Play");
+            buttonPlay.setMinWidth(100);
             buttonPlay.setDisable(true);
+            buttonPlay.setDefaultButton(true);
             buttonPlay.setOnMouseClicked(event -> {
                 Podcast podcast = getLvPodcasts().getSelectionModel().getSelectedItem();
                 podcastPlayerRunner.setPodcastPath(podcastUrlProvider.getPodcastUrl(String.valueOf(podcast.getId())));
                 podcastPlayerRunner.run();
-                Platform.exit();
+                buttonPlay.setText("Launching podcast ...");
+                buttonPlay.setDisable(true);
+
+                TranslateTransition transition = new TranslateTransition(Duration.seconds(5), buttonPlay);
+                transition.setOnFinished(actionEvent -> Platform.exit());
+                transition.play();
             });
         }
         return buttonPlay;
