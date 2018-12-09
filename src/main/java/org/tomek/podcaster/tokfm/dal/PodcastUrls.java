@@ -1,4 +1,4 @@
-package org.tomek.podcaster.finder;
+package org.tomek.podcaster.tokfm.dal;
 
 import com.google.gson.Gson;
 
@@ -11,22 +11,11 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * This will need to be migrated
- */
-@Deprecated
-public class TokFmFinder {
+public class PodcastUrls {
     private final static String SOURCE_URL = "https://audycje.tokfm.pl/gets";
     private final static Gson GSON = new Gson();
 
-    private final String podcastId;
-
-    public TokFmFinder(String podcastId) {
-        this.podcastId = podcastId;
-    }
-
-
-    public String findPodcastUrl() {
+    public String fetchPodcastUrl(String podcastId) {
         try {
             URL url = new URL(SOURCE_URL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

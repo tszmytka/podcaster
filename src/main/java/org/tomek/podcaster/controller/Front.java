@@ -1,16 +1,16 @@
 package org.tomek.podcaster.controller;
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import org.tomek.podcaster.runner.PodcastPlayerRunner;
 import org.tomek.podcaster.tokfm.CategoryProvider;
 import org.tomek.podcaster.tokfm.PodcastProvider;
+import org.tomek.podcaster.tokfm.PodcastUrlProvider;
 import org.tomek.podcaster.tokfm.model.Category;
 import org.tomek.podcaster.tokfm.model.Podcast;
 
@@ -24,15 +24,17 @@ public class Front {
     private static final String PODCASTER_PROPERTIES = "podcaster.properties";
     private final CategoryProvider categoryProvider;
     private final PodcastProvider podcastProvider;
+    private final PodcastUrlProvider podcastUrlProvider;
 
     private ListView<Category> lvCategories;
     private ListView<Podcast> lvPodcasts;
     private Button buttonPlay;
 
 
-    public Front(CategoryProvider categoryProvider, PodcastProvider podcastProvider) {
+    public Front(CategoryProvider categoryProvider, PodcastProvider podcastProvider, PodcastUrlProvider podcastUrlProvider) {
         this.categoryProvider = categoryProvider;
         this.podcastProvider = podcastProvider;
+        this.podcastUrlProvider = podcastUrlProvider;
     }
 
 
@@ -100,9 +102,11 @@ public class Front {
             buttonPlay = new Button("Play");
             buttonPlay.setDisable(true);
             buttonPlay.setOnMouseClicked(event -> {
-                // todo play the selected podcast
-//                Podcast podcast = getLvPodcasts().getSelectionModel().getSelectedItem();
-
+                Podcast podcast = getLvPodcasts().getSelectionModel().getSelectedItem();
+                // todo get PodcastPlayerRunner from a bean
+                PodcastPlayerRunner runner = new PodcastPlayerRunner("C:\\Program Files\\VideoLAN\\VLC\\vlc.exe", podcastUrlProvider.getPodcastUrl(String.valueOf( podcast.getId())));
+                runner.run();
+                Platform.exit();
             });
         }
         return buttonPlay;

@@ -5,21 +5,24 @@ import org.springframework.context.annotation.Configuration;
 import org.tomek.podcaster.controller.Front;
 import org.tomek.podcaster.tokfm.CategoryProvider;
 import org.tomek.podcaster.tokfm.PodcastProvider;
+import org.tomek.podcaster.tokfm.PodcastUrlProvider;
 
 @Configuration
 public class ApplicationConfig {
     private final CategoryProvider categoryProvider;
     private final PodcastProvider podcastProvider;
+    private final PodcastUrlProvider podcastUrlProvider;
 
 
-    public ApplicationConfig(CategoryProvider categoryProvider, PodcastProvider podcastProvider) {
+    public ApplicationConfig(CategoryProvider categoryProvider, PodcastProvider podcastProvider, PodcastUrlProvider podcastUrlProvider) {
         this.categoryProvider = categoryProvider;
         this.podcastProvider = podcastProvider;
+        this.podcastUrlProvider = podcastUrlProvider;
     }
 
 
     @Bean
     public Front front() {
-        return new Front(categoryProvider, podcastProvider);
+        return new Front(categoryProvider, podcastProvider, podcastUrlProvider);
     }
 }

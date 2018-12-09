@@ -7,7 +7,9 @@ import org.springframework.stereotype.Component;
 import org.tomek.podcaster.parser.jsoup.JsoupConnector;
 import org.tomek.podcaster.tokfm.CategoryProvider;
 import org.tomek.podcaster.tokfm.PodcastProvider;
+import org.tomek.podcaster.tokfm.PodcastUrlProvider;
 import org.tomek.podcaster.tokfm.dal.Categories;
+import org.tomek.podcaster.tokfm.dal.PodcastUrls;
 import org.tomek.podcaster.tokfm.dal.Podcasts;
 import org.tomek.podcaster.tokfm.model.Category;
 import org.tomek.podcaster.tokfm.model.Podcast;
@@ -48,6 +50,16 @@ public class TokFmConfig {
     @Bean
     public PodcastProvider podcastProvider(Podcasts podcasts, Cache<String, Map<Integer, Podcast>> podcastCache) {
         return new PodcastProvider(podcasts, podcastCache);
+    }
+
+    @Bean
+    public PodcastUrls podcastUrls() {
+        return new PodcastUrls();
+    }
+
+    @Bean
+    public PodcastUrlProvider podcastUrlProvider(PodcastUrls podcastUrls) {
+        return new PodcastUrlProvider(podcastUrls);
     }
 
     public void setCategoriesUrl(String categoriesUrl) {
