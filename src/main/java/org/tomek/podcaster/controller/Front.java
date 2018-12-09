@@ -1,16 +1,14 @@
 package org.tomek.podcaster.controller;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.tomek.podcaster.runner.PodcastPlayerRunner;
@@ -48,16 +46,24 @@ public class Front {
 
     public void render(Stage primaryStage) {
         BorderPane borderPane = new BorderPane();
+        borderPane.setPadding(new Insets(5));
         borderPane.setTop(buildMenuBar());
         borderPane.setLeft(new HBox(getLvCategories()));
         borderPane.setCenter(new HBox(getLvPodcasts()));
 
         HBox bottomBox = new HBox(5, getButtonPlay());
-        bottomBox.setAlignment(Pos.BOTTOM_RIGHT);
-        borderPane.setBottom(bottomBox);
+        bottomBox.setAlignment(Pos.CENTER);
+        BorderPane rightPane = new BorderPane();
+        rightPane.setBottom(bottomBox);
+        borderPane.setRight(rightPane);
+
+        VBox info = new VBox(new Label("Podcast info goes here"));
+        info.setAlignment(Pos.CENTER);
+        info.setMinWidth(250);
+        rightPane.setCenter(info);
 
         primaryStage.setTitle("Podcaster");
-        primaryStage.setScene(new Scene(borderPane, 800, 600));
+        primaryStage.setScene(new Scene(borderPane, 1024, 600));
         primaryStage.show();
     }
 
@@ -112,11 +118,11 @@ public class Front {
             buttonPlay.setDisable(true);
             buttonPlay.setDefaultButton(true);
             buttonPlay.setOnMouseClicked(event -> {
+                buttonPlay.setText("Launching podcast ...");
+                buttonPlay.setDisable(true);
                 Podcast podcast = getLvPodcasts().getSelectionModel().getSelectedItem();
                 podcastPlayerRunner.setPodcastPath(podcastUrlProvider.getPodcastUrl(String.valueOf(podcast.getId())));
                 podcastPlayerRunner.run();
-                buttonPlay.setText("Launching podcast ...");
-                buttonPlay.setDisable(true);
 
                 TranslateTransition transition = new TranslateTransition(Duration.seconds(5), buttonPlay);
                 transition.setOnFinished(actionEvent -> Platform.exit());
