@@ -12,8 +12,11 @@ import org.tomek.podcaster.tokfm.PodcastProvider;
 import org.tomek.podcaster.tokfm.model.Category;
 import org.tomek.podcaster.tokfm.model.Podcast;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Properties;
 
 public class Front {
     private final CategoryProvider categoryProvider;
@@ -49,7 +52,7 @@ public class Front {
         if (lvCategories == null) {
             lvCategories = new ListView<>();
             lvCategories.getItems().addAll(categoryProvider.getCategories().values());
-            lvCategories.setCellFactory(param -> new ListCell<Category>() {
+            lvCategories.setCellFactory(param -> new ListCell<>() {
                 @Override
                 protected void updateItem(Category category, boolean empty) {
                     super.updateItem(category, empty);
@@ -77,16 +80,14 @@ public class Front {
             lvPodcasts = new ListView<>();
             lvPodcasts.setDisable(true);
             lvPodcasts.setMinWidth(450);
-            lvPodcasts.setCellFactory(param -> new ListCell<Podcast>() {
+            lvPodcasts.setCellFactory(param -> new ListCell<>() {
                 @Override
                 protected void updateItem(Podcast podcast, boolean empty) {
                     super.updateItem(podcast, empty);
                     setText(empty ? null : podcast.getTitle());
                 }
             });
-            lvPodcasts.setOnMouseClicked(event -> {
-                buttonPlay.setDisable(false);
-            });
+            lvPodcasts.setOnMouseClicked(event -> buttonPlay.setDisable(false));
         }
         return lvPodcasts;
     }
@@ -96,7 +97,9 @@ public class Front {
             buttonPlay = new Button("Play");
             buttonPlay.setDisable(true);
             buttonPlay.setOnMouseClicked(event -> {
-                Podcast podcast = getLvPodcasts().getSelectionModel().getSelectedItem();
+                // todo play the selected podcast
+//                Podcast podcast = getLvPodcasts().getSelectionModel().getSelectedItem();
+
             });
         }
         return buttonPlay;
@@ -105,18 +108,23 @@ public class Front {
     private MenuBar buildMenuBar() {
         Menu menuFile = new Menu("File");
         MenuItem exit = new MenuItem("Exit");
-        exit.setOnAction(actionEvent -> {
-            Platform.exit();
-        });
+        exit.setOnAction(actionEvent -> Platform.exit());
         menuFile.getItems().add(exit);
 
         Menu menuHelp = new Menu("Help");
         MenuItem about = new MenuItem("About");
-        about.setOnAction(e -> {
+        about.setOnAction(event -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("About");
+            Properties properties = new Properties();
+            try (InputStream resourceAsStream = getClass().getResourceAsStream("/podcaster.properties")) {
+                properties.load(resourceAsStream);
+            } catch (IOException e) {
+                //
+            }
+            String version = properties.getProperty("application.version");
             alert.setHeaderText(null);
-            alert.setContentText("Podcaster ver 0.3");
+            alert.setContentText("Podcaster" + (version != null ? " ver: " + version : ""));
             alert.show();
         });
 
