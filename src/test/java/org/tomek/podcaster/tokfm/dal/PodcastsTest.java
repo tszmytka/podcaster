@@ -15,7 +15,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -47,14 +48,14 @@ class PodcastsTest {
         int id0 = 213;
         String title0 = "Unit test podcast";
         String duration0 = "5:26";
-        String[] guests0 =  {"John Doe 1"};
+        String[] guests0 = {"John Doe 1"};
         rows.add(mockPodcast(String.valueOf(id0), title0, duration0, guests0));
 
         // Podcast with 2 guests
         int id1 = 958439;
         String title1 = "Podcast 2";
         String duration1 = "3:14";
-        String[] guests1 =  {"Johny A.", "John Doe 1"};
+        String[] guests1 = {"Johny A.", "John Doe 1"};
         rows.add(mockPodcast(String.valueOf(id1), title1, duration1, guests1));
 
         // Podcast with no guests
@@ -89,7 +90,7 @@ class PodcastsTest {
     void willReturnNullOnIOException() throws Exception {
         URL url = new URL("http://www.example.com");
         when(jsoupConnector.parseDocument(eq(url))).thenThrow(IOException.class);
-        assertNull(podcasts.fetchPodcasts(url));
+        assertEquals(0, podcasts.fetchPodcasts(url).size());
     }
 
     private static Element mockPodcast(String identifier, String title, String duration) {

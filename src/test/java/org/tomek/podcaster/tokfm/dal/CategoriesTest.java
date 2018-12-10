@@ -19,7 +19,8 @@ import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -85,7 +86,7 @@ class CategoriesTest {
     @Test
     void willReturnNullOnIOException() throws Exception {
         when(jsoupConnector.parseDocument(eq(url))).thenThrow(IOException.class);
-        assertNull(categories.fetchCategories());
+        assertEquals(0, categories.fetchCategories().size());
     }
 
 

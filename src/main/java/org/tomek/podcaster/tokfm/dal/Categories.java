@@ -2,6 +2,8 @@ package org.tomek.podcaster.tokfm.dal;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tomek.podcaster.parser.jsoup.JsoupConnector;
 import org.tomek.podcaster.parser.jsoup.JsoupDataProvider;
 import org.tomek.podcaster.tokfm.model.Category;
@@ -12,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Categories extends JsoupDataProvider {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Categories.class);
 
     private final URL url;
 
@@ -43,7 +46,7 @@ public class Categories extends JsoupDataProvider {
                 categories.put(category.getId(), category);
             }
         } catch (IOException e) {
-            return null;
+            LOGGER.error("Cannot get categories", e);
         }
 
         return categories;

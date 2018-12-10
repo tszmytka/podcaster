@@ -150,7 +150,7 @@ public class Front {
             try (InputStream resourceAsStream = getClass().getResourceAsStream("/" + PODCASTER_PROPERTIES)) {
                 properties.load(resourceAsStream);
             } catch (IOException e) {
-                //
+                LOGGER.warn("Could not read the properies file", e);
             }
             String version = properties.getProperty("application.version");
             alert.setHeaderText(null);
