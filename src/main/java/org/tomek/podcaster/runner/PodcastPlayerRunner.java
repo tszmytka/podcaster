@@ -1,8 +1,12 @@
 package org.tomek.podcaster.runner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 
 public class PodcastPlayerRunner implements Runnable {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PodcastPlayerRunner.class);
     private final String applicationPath;
     private String podcastPath;
 
@@ -22,7 +26,7 @@ public class PodcastPlayerRunner implements Runnable {
         try {
             new ProcessBuilder(applicationPath, podcastPath).start();
         } catch (IOException e) {
-            System.out.println("Error while running external application: " + e.getMessage());
+            LOGGER.error("Cannot run external application", e);
         }
     }
 }

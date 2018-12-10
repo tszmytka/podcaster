@@ -1,6 +1,8 @@
 package org.tomek.podcaster.tokfm.dal;
 
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -12,8 +14,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PodcastUrls {
-    private final static String SOURCE_URL = "https://audycje.tokfm.pl/gets";
-    private final static Gson GSON = new Gson();
+    private static final Logger LOGGER = LoggerFactory.getLogger(Podcasts.class);
+    private static final String SOURCE_URL = "https://audycje.tokfm.pl/gets";
+    private static final Gson GSON = new Gson();
 
     public String fetchPodcastUrl(String podcastId) {
         try {
@@ -33,7 +36,7 @@ public class PodcastUrls {
                 return (String) outParams.get("url");
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Cannot get podcast url", e);
         }
         return "";
     }
