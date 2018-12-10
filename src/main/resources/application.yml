@@ -3,3 +3,6 @@ providers:
     categories-url: https://audycje.tokfm.pl/audycje-tokfm
 logging:
   file: data/log/application.log
+
+player:
+  path: C:\Program Files\VideoLAN\VLC\vlc.exe
