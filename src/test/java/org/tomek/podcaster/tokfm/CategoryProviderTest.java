@@ -41,6 +41,7 @@ class CategoryProviderTest {
         when(cache.iterator()).thenReturn(Collections.emptyListIterator());
         assertEquals(categoriesFetched, categoryProvider.getCategories());
         verify(categories).fetchCategories();
+        verify(cache).putAll(any());
     }
 
 
@@ -53,7 +54,8 @@ class CategoryProviderTest {
         Map<Integer, Category> categoriesGotten = categoryProvider.getCategories();
         assertEquals(1, categoriesGotten.size());
         assertEquals(category0, categoriesGotten.get(0));
-        verify(this.categories, never()).fetchCategories();
+        verify(categories, never()).fetchCategories();
+        verify(cache, never()).putAll(any());
     }
 
 

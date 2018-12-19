@@ -40,6 +40,7 @@ class PodcastProviderTest {
         when(podcasts.fetchPodcasts(eq(url))).thenReturn(podcastsFetched);
         assertEquals(podcastsFetched, podcastProvider.getPodcasts(url));
         verify(podcasts).fetchPodcasts(url);
+        verify(cache).put(anyString(), anyMap());
     }
 
 
@@ -52,5 +53,8 @@ class PodcastProviderTest {
         when(cache.get(url.toString())).thenReturn(podcastsCached);
         assertEquals(podcastsCached, podcastProvider.getPodcasts(url));
         verify(podcasts, never()).fetchPodcasts(url);
+        verify(cache, never()).put(anyString(), anyMap());
     }
+
+
 }
