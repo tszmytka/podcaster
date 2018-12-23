@@ -11,14 +11,14 @@ import org.tomek.podcaster.controller.Front;
 public class PodcasterApplication extends Application {
     private static String[] cmdArgs;
 
+
     public static void main(String[] args) {
         cmdArgs = args;
         launch(args);
     }
 
-
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         ConfigurableApplicationContext context = SpringApplication.run(PodcasterApplication.class, cmdArgs);
         context.getBean(Front.class).render(primaryStage);
     }

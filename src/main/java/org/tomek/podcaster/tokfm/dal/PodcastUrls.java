@@ -15,13 +15,18 @@ import java.util.Map;
 
 public class PodcastUrls {
     private static final Logger LOGGER = LoggerFactory.getLogger(Podcasts.class);
-    private static final String SOURCE_URL = "https://audycje.tokfm.pl/gets";
     private static final Gson GSON = new Gson();
+
+    private final URL podcastUrl;
+
+
+    public PodcastUrls(URL podcastUrl) {
+        this.podcastUrl = podcastUrl;
+    }
 
     public String fetchPodcastUrl(String podcastId) {
         try {
-            URL url = new URL(SOURCE_URL);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) podcastUrl.openConnection();
             connection.setRequestMethod("POST");
             connection.setDoOutput(true);
             try (DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream())) {

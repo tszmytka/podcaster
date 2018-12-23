@@ -24,6 +24,7 @@ import java.util.Map;
 @ConfigurationProperties("providers.tokfm")
 public class TokFmConfig {
     private String categoriesUrl;
+    private String podcastsUrl;
 
     private final JsoupConnector jsoupConnector;
 
@@ -53,8 +54,8 @@ public class TokFmConfig {
     }
 
     @Bean
-    public PodcastUrls podcastUrls() {
-        return new PodcastUrls();
+    public PodcastUrls podcastUrls() throws MalformedURLException {
+        return new PodcastUrls(new URL(podcastsUrl));
     }
 
     @Bean
@@ -64,5 +65,9 @@ public class TokFmConfig {
 
     public void setCategoriesUrl(String categoriesUrl) {
         this.categoriesUrl = categoriesUrl;
+    }
+
+    public void setPodcastsUrl(String podcastsUrl) {
+        this.podcastsUrl = podcastsUrl;
     }
 }
