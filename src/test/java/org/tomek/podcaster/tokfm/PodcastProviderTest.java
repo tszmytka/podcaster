@@ -43,7 +43,6 @@ class PodcastProviderTest {
         verify(cache).put(anyString(), anyMap());
     }
 
-
     @Test
     void canGetPodcastsWithWarmCache() throws Exception {
         URL url = new URL("http://www.example.com/path/to/podcast-group/1");
@@ -55,6 +54,4 @@ class PodcastProviderTest {
         verify(podcasts, never()).fetchPodcasts(url);
         verify(cache, never()).put(anyString(), anyMap());
     }
-
-
 }

@@ -32,7 +32,6 @@ class CategoryProviderTest {
         categoryProvider = new CategoryProvider(categories, cache);
     }
 
-
     @Test
     void canGetCategoriesWithColdCache() {
         HashMap<Integer, Category> categoriesFetched = new HashMap<>();
@@ -43,7 +42,6 @@ class CategoryProviderTest {
         verify(categories).fetchCategories();
         verify(cache).putAll(any());
     }
-
 
     @Test
     void canGetCategoriesWithWarmCache() {
@@ -57,7 +55,6 @@ class CategoryProviderTest {
         verify(categories, never()).fetchCategories();
         verify(cache, never()).putAll(any());
     }
-
 
     private class CacheEntry implements Cache.Entry<Integer, Category> {
         private final Integer key;
