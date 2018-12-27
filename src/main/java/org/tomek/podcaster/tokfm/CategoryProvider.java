@@ -34,8 +34,4 @@ public class CategoryProvider {
         }
         return cachedCategories;
     }
-
-    public Category getCategory(int id) {
-        return getCategories().get(id);
-    }
 }

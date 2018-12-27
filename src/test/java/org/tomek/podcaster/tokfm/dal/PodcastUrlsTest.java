@@ -48,7 +48,6 @@ class PodcastUrlsTest {
         }));
     }
 
-
     @Test
     void canFetchPodcastUrls() throws Exception {
         when(urlConnection.getOutputStream()).thenReturn(outputStream);
@@ -78,5 +77,12 @@ class PodcastUrlsTest {
         }
         Map map = GSON.fromJson(new String(bytes), Map.class);
         assertEquals(podcastId, map.get("pid"));
+    }
+
+
+    @Test
+    void canSurviveIOException() throws Exception {
+        when(urlConnection.getOutputStream()).thenThrow(IOException.class);
+        assertEquals("", podcastUrls.fetchPodcastUrl("podcastABC"));
     }
 }
