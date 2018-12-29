@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class PodcastPlayerRunner implements Runnable {
     private static final Logger LOGGER = LoggerFactory.getLogger(PodcastPlayerRunner.class);
@@ -20,9 +21,7 @@ public class PodcastPlayerRunner implements Runnable {
 
     @Override
     public void run() {
-        if (podcastPath == null) {
-            throw new IllegalStateException("Cannot run player runner with no podcast path set.");
-        }
+        Objects.requireNonNull(podcastPath, "Cannot run player runner with no podcast path set.");
         try {
             new ProcessBuilder(applicationPath, podcastPath).start();
         } catch (IOException e) {
