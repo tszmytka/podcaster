@@ -29,5 +29,5 @@ public class PodcasterApplication extends Application {
         primaryStage.setTitle("Podcaster FXML");
         primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/org/tomek/podcaster/frontend/Podcaster.fxml")), 1024, 600));
         primaryStage.show();
-    }
+}
 }

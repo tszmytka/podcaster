@@ -26,6 +26,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 
+/**
+ * todo Migrate this whole to PodcasterController and FXML
+ */
 public class Front {
     private static final Logger LOGGER = LoggerFactory.getLogger(Front.class);
     private static final String PODCASTER_PROPERTIES = "podcaster.properties";

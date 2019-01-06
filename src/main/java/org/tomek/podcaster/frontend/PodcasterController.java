@@ -1,8 +1,6 @@
 package org.tomek.podcaster.frontend;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +11,7 @@ import java.util.Properties;
 
 public class PodcasterController {
     private static final Logger LOGGER = LoggerFactory.getLogger(PodcasterController.class);
+    // todo "podcaster.properties" is generated automatically - the file is not available if mvn install hasn't been run
     private static final String PODCASTER_PROPERTIES = "podcaster.properties";
 
 
