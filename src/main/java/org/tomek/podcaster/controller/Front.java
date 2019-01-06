@@ -135,6 +135,9 @@ public class Front {
         return buttonPlay;
     }
 
+    /**
+     * Whole method migrated to FXML
+     */
     private MenuBar buildMenuBar() {
         Menu menuFile = new Menu("File");
         MenuItem exit = new MenuItem("Exit");
