@@ -36,8 +36,17 @@ public class Categories extends JsoupDataProvider {
                 for (Element authorLink : authorLinks) {
                     authors[i++] = authorLink.text();
                 }
+                Elements podcastButton = element.getElementsByClass("tok-podcasts__button");
+                int categoryId = -1;
+                if (!podcastButton.isEmpty()) {
+                    categoryId = Integer.valueOf(podcastButton.first().attr("data-subscribe_id"));
+                }
+                if (categoryId == -1) {
+                    String[] linkElements = link.attr("href").split("/");
+                    categoryId = Integer.valueOf(linkElements[linkElements.length - 1]);
+                }
                 Category category = new Category(
-                    Integer.valueOf(element.getElementsByClass("tok-podcasts__button").first().attr("data-subscribe_id")),
+                    categoryId,
                     link.select(".tok_audycje__name").first().text(),
                     authors,
                     link.attr("href"),
