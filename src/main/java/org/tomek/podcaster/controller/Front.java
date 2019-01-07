@@ -27,7 +27,7 @@ import java.net.URL;
 import java.util.Properties;
 
 /**
- * todo Migrate this whole to PodcasterController and FXML
+ * todo All has been migrated to FXML - keeping for backwards compatibility
  */
 public class Front {
     private static final Logger LOGGER = LoggerFactory.getLogger(Front.class);
@@ -49,7 +49,9 @@ public class Front {
         this.podcastPlayerRunner = podcastPlayerRunner;
     }
 
-
+    /**
+     * Whole method migrated to FXML
+     */
     public void render(Stage primaryStage) {
         BorderPane borderPane = new BorderPane();
         borderPane.setPadding(new Insets(5));
@@ -123,6 +125,9 @@ public class Front {
         return lvPodcasts;
     }
 
+    /**
+     * Whole method migrated to FXML
+     */
     private Button getButtonPlay() {
         if (buttonPlay == null) {
             buttonPlay = new Button("Play");

@@ -1,10 +1,11 @@
 package org.tomek.podcaster.frontend;
 
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -39,6 +40,7 @@ public class PodcasterController implements Initializable {
     @FXML
     private ListView<Podcast> lvPodcasts;
 
+    @FXML
     private Button buttonPlay;
 
 
@@ -52,6 +54,7 @@ public class PodcasterController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initCategories();
+        initPodcasts();
     }
 
     private void initCategories() {
@@ -90,6 +93,18 @@ public class PodcasterController implements Initializable {
         buttonPlay.setDisable(false);
     }
 
+    public void buttonPlayClicked() {
+        buttonPlay.setText("Launching podcast ...");
+        buttonPlay.setDisable(true);
+        Podcast podcast = lvPodcasts.getSelectionModel().getSelectedItem();
+        podcastPlayerRunner.setPodcastPath(podcastUrlProvider.getPodcastUrl(String.valueOf(podcast.getId())));
+        podcastPlayerRunner.run();
+
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(5), buttonPlay);
+        transition.setOnFinished(actionEvent -> Platform.exit());
+        transition.play();
+    }
+
     public void menuFileExit() {
         Platform.exit();
     }
@@ -108,5 +123,4 @@ public class PodcasterController implements Initializable {
         alert.setContentText("Podcaster" + (version != null ? " ver: " + version : ""));
         alert.show();
     }
-
 }

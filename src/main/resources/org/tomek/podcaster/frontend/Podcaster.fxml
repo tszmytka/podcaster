@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tomek.podcaster.frontend.PodcasterController">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tomek.podcaster.frontend.PodcasterController">
     <left>
         <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <ListView fx:id="lvCategories" minWidth="300.0" prefHeight="200.0" prefWidth="200.0" />
+                <ListView fx:id="lvCategories" minWidth="300.0" prefHeight="200.0" prefWidth="200.0"/>
             </children>
         </HBox>
     </left>
@@ -20,12 +16,12 @@
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#menuFileExit" text="Close" />
+                        <MenuItem mnemonicParsing="false" onAction="#menuFileExit" text="Close"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#menuHelpAbout" text="About" />
+                        <MenuItem mnemonicParsing="false" onAction="#menuHelpAbout" text="About"/>
                     </items>
                 </Menu>
             </menus>
@@ -34,8 +30,26 @@
     <center>
         <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <ListView fx:id="lvPodcasts" disable="true" minWidth="450.0" onMouseClicked="#lvPodcastsClicked" prefHeight="200.0" prefWidth="200.0" />
+                <ListView fx:id="lvPodcasts" disable="true" minWidth="450.0" onMouseClicked="#lvPodcastsClicked" prefHeight="200.0" prefWidth="200.0"/>
             </children>
         </HBox>
     </center>
+    <right>
+        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <bottom>
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button fx:id="buttonPlay" defaultButton="true" disable="true" mnemonicParsing="false" onMouseClicked="#buttonPlayClicked" text="Play"/>
+                    </children>
+                </HBox>
+            </bottom>
+            <center>
+                <VBox alignment="CENTER" minWidth="250.0" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label text="Podcast info goes here"/>
+                    </children>
+                </VBox>
+            </center>
+        </BorderPane>
+    </right>
 </BorderPane>
