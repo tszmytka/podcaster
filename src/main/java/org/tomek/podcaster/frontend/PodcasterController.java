@@ -3,9 +3,7 @@ package org.tomek.podcaster.frontend;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -18,6 +16,7 @@ import org.tomek.podcaster.tokfm.model.Podcast;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -50,6 +49,24 @@ public class PodcasterController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         lvCategories.getItems().addAll(categoryProvider.getCategories().values());
+        lvCategories.setCellFactory(param -> new ListCell<Category>() {
+            @Override
+            protected void updateItem(Category category, boolean empty) {
+                super.updateItem(category, empty);
+                setText(empty ? null : category.getName());
+            }
+        });
+        MultipleSelectionModel<Category> selectionModel = lvCategories.getSelectionModel();
+        selectionModel.setSelectionMode(SelectionMode.SINGLE);
+        selectionModel.selectedItemProperty().addListener((observableValue, categoryOld, categoryNew) -> {
+            try {
+                lvPodcasts.setDisable(false);
+                buttonPlay.setDisable(true);
+                lvPodcasts.getItems().setAll(podcastProvider.getPodcasts(new URL(categoryNew.getUrl())).values());
+            } catch (MalformedURLException e) {
+                LOGGER.debug("Invalid url provided", e);
+            }
+        });
     }
 
     public void menuFileExit() {

@@ -39,9 +39,4 @@ public class ApplicationConfig {
     public PodcastPlayerRunner podcastPlayerRunner() {
         return new PodcastPlayerRunner(mediaPlayerPath);
     }
-
-//    @Bean
-//    public PodcasterController podcasterController() {
-//        return new PodcasterController();
-//    }
 }
