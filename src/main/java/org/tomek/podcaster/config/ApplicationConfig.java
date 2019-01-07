@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.tomek.podcaster.controller.Front;
+import org.tomek.podcaster.frontend.PodcasterController;
 import org.tomek.podcaster.runner.PodcastPlayerRunner;
 import org.tomek.podcaster.tokfm.CategoryProvider;
 import org.tomek.podcaster.tokfm.PodcastProvider;
@@ -39,4 +40,8 @@ public class ApplicationConfig {
         return new PodcastPlayerRunner(mediaPlayerPath);
     }
 
+//    @Bean
+//    public PodcasterController podcasterController() {
+//        return new PodcasterController();
+//    }
 }
