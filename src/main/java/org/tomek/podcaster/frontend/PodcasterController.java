@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -35,9 +36,11 @@ public class PodcasterController implements Initializable {
     @FXML
     private ListView<Category> lvCategories;
 
+    @FXML
     private ListView<Podcast> lvPodcasts;
 
     private Button buttonPlay;
+
 
     public PodcasterController(CategoryProvider categoryProvider, PodcastProvider podcastProvider, PodcastUrlProvider podcastUrlProvider, PodcastPlayerRunner podcastPlayerRunner) {
         this.categoryProvider = categoryProvider;
@@ -48,6 +51,10 @@ public class PodcasterController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        initCategories();
+    }
+
+    private void initCategories() {
         lvCategories.getItems().addAll(categoryProvider.getCategories().values());
         lvCategories.setCellFactory(param -> new ListCell<Category>() {
             @Override
@@ -69,6 +76,20 @@ public class PodcasterController implements Initializable {
         });
     }
 
+    private void initPodcasts() {
+        lvPodcasts.setCellFactory(param -> new ListCell<Podcast>() {
+            @Override
+            protected void updateItem(Podcast podcast, boolean empty) {
+                super.updateItem(podcast, empty);
+                setText(empty ? null : podcast.getTitle());
+            }
+        });
+    }
+
+    public void lvPodcastsClicked() {
+        buttonPlay.setDisable(false);
+    }
+
     public void menuFileExit() {
         Platform.exit();
     }
@@ -87,4 +108,5 @@ public class PodcasterController implements Initializable {
         alert.setContentText("Podcaster" + (version != null ? " ver: " + version : ""));
         alert.show();
     }
+
 }

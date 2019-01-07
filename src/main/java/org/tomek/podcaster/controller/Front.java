@@ -73,6 +73,9 @@ public class Front {
         primaryStage.show();
     }
 
+    /**
+     * Whole method migrated to FXML
+     */
     private ListView<Category> getLvCategories() {
         if (lvCategories == null) {
             lvCategories = new ListView<>();
@@ -100,6 +103,9 @@ public class Front {
         return lvCategories;
     }
 
+    /**
+     * Whole method migrated to FXML
+     */
     private ListView<Podcast> getLvPodcasts() {
         if (lvPodcasts == null) {
             lvPodcasts = new ListView<>();

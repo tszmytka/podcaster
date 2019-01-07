@@ -31,4 +31,11 @@
             </menus>
         </MenuBar>
     </top>
+    <center>
+        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <ListView fx:id="lvPodcasts" disable="true" minWidth="450.0" onMouseClicked="#lvPodcastsClicked" prefHeight="200.0" prefWidth="200.0" />
+            </children>
+        </HBox>
+    </center>
 </BorderPane>
