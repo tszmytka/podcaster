@@ -24,8 +24,6 @@ public class PodcasterApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         context = SpringApplication.run(PodcasterApplication.class, cmdArgs);
-//        context.getBean(Front.class).render(primaryStage);
-
         primaryStage.setTitle("Podcaster FXML");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/tomek/podcaster/frontend/Podcaster.fxml"));
         fxmlLoader.setControllerFactory(context::getBean);
