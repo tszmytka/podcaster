@@ -43,6 +43,12 @@ public class PodcasterController implements Initializable {
     @FXML
     private Button buttonPlay;
 
+    @FXML
+    private Label lblPodcastName;
+
+    @FXML
+    private Label lblPodcastDuration;
+
 
     public PodcasterController(CategoryProvider categoryProvider, PodcastProvider podcastProvider, PodcastUrlProvider podcastUrlProvider, PodcastPlayerRunner podcastPlayerRunner) {
         this.categoryProvider = categoryProvider;
@@ -86,6 +92,12 @@ public class PodcasterController implements Initializable {
                 super.updateItem(podcast, empty);
                 setText(empty ? null : podcast.getTitle());
             }
+        });
+        MultipleSelectionModel<Podcast> selectionModel = lvPodcasts.getSelectionModel();
+        selectionModel.setSelectionMode(SelectionMode.SINGLE);
+        selectionModel.selectedItemProperty().addListener((observableValue, podcastOld, podcastNew) -> {
+            lblPodcastName.setText(podcastNew.getTitle());
+            lblPodcastDuration.setText(podcastNew.getDuration() + " s.");
         });
     }
 

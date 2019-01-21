@@ -7,7 +7,7 @@
     <left>
         <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <ListView fx:id="lvCategories" minWidth="300.0" prefHeight="200.0" prefWidth="200.0"/>
+                <ListView fx:id="lvCategories" minWidth="350.0" prefHeight="200.0" prefWidth="200.0"/>
             </children>
         </HBox>
     </left>
@@ -46,7 +46,8 @@
             <center>
                 <VBox alignment="CENTER" minWidth="250.0" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Label text="Podcast info goes here"/>
+                        <Label fx:id="lblPodcastName"/>
+                        <Label fx:id="lblPodcastDuration" text="Label"/>
                     </children>
                 </VBox>
             </center>
