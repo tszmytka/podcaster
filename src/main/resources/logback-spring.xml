@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <appender name="GelfUDPAppender" class="me.moocar.logbackgelf.GelfUDPAppender">
+        <remoteHost>localhost</remoteHost>
+        <port>12201</port>
+        <encoder class="me.moocar.logbackgelf.GZIPEncoder">
+            <layout class="me.moocar.logbackgelf.GelfLayout">
+                <useLoggerName>true</useLoggerName>
+                <useThreadName>true</useThreadName>
+            </layout>
+        </encoder>
+    </appender>
+    <root level="debug">
+        <appender-ref ref="GelfUDPAppender"/>
+    </root>
+</configuration>

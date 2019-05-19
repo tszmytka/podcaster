@@ -1,5 +1,7 @@
 package org.tomek.podcaster.tokfm;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tomek.podcaster.tokfm.dal.Categories;
 import org.tomek.podcaster.tokfm.model.Category;
 
@@ -8,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CategoryProvider {
+    Logger LOGGER = LoggerFactory.getLogger(CategoryProvider.class);
 
     private final Categories categories;
 
@@ -26,9 +29,12 @@ public class CategoryProvider {
 
         HashMap<Integer, Category> cachedCategories = new HashMap<>();
         for (Cache.Entry<Integer, Category> entry : cache) {
-            cachedCategories.put(entry.getKey(), entry.getValue());
+            if (entry != null) {
+                cachedCategories.put(entry.getKey(), entry.getValue());
+            }
         }
         if (cachedCategories.isEmpty()) {
+            LOGGER.warn("No cached category entries. Attempting to fetch.");
             cachedCategories.putAll(categories.fetchCategories());
             cache.putAll(cachedCategories);
         }

@@ -4,6 +4,8 @@ providers:
     podcasts-url: https://audycje.tokfm.pl/gets
 logging:
   file: data/log/application.log
+  level:
+    root: INFO
 
 player:
   path: C:\Program Files\VideoLAN\VLC\vlc.exe

@@ -43,6 +43,11 @@
             <artifactId>slf4j-api</artifactId>
             <version>1.7.25</version>
         </dependency>
+        <dependency>
+            <groupId>me.moocar</groupId>
+            <artifactId>logback-gelf</artifactId>
+            <version>0.3</version>
+        </dependency>
 
         <!-- JavaFX -->
         <dependency>

@@ -4,6 +4,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StopWatch;
 import org.tomek.podcaster.parser.jsoup.JsoupConnector;
 import org.tomek.podcaster.parser.jsoup.JsoupDataProvider;
 import org.tomek.podcaster.tokfm.model.Category;
@@ -25,6 +26,8 @@ public class Categories extends JsoupDataProvider {
 
 
     public Map<Integer, Category> fetchCategories() {
+        StopWatch stopWatch = new StopWatch("Fetching categories");
+        stopWatch.start();
         HashMap<Integer, Category> categories = new HashMap<>();
         try {
             Elements elements = getJsoupConnector().parseDocument(url).select("#tok_audycje_list li.tok_audycje__element");
@@ -57,7 +60,8 @@ public class Categories extends JsoupDataProvider {
         } catch (IOException e) {
             LOGGER.error("Cannot get categories", e);
         }
-
+        stopWatch.stop();
+        LOGGER.info(stopWatch.toString());
         return categories;
     }
 }
