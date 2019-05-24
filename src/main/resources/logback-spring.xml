@@ -2,6 +2,9 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
+    <springProperty name="applicationName" source="spring.application.name"/>
+    <springProperty name="activeProfile" source="spring.profiles.active"/>
+
     <appender name="GelfUDPAppender" class="me.moocar.logbackgelf.GelfUDPAppender">
         <remoteHost>localhost</remoteHost>
         <port>12201</port>
@@ -9,6 +12,14 @@
             <layout class="me.moocar.logbackgelf.GelfLayout">
                 <useLoggerName>true</useLoggerName>
                 <useThreadName>true</useThreadName>
+                <staticField class="me.moocar.logbackgelf.Field">
+                    <key>_facility</key>
+                    <value>${applicationName}</value>
+                </staticField>
+                <staticField class="me.moocar.logbackgelf.Field">
+                    <key>_environment</key>
+                    <value>${activeProfile}</value>
+                </staticField>
             </layout>
         </encoder>
     </appender>

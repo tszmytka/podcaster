@@ -33,6 +33,7 @@ public class CategoryProvider {
                 cachedCategories.put(entry.getKey(), entry.getValue());
             }
         }
+
         if (cachedCategories.isEmpty()) {
             LOGGER.warn("No cached category entries. Attempting to fetch.");
             cachedCategories.putAll(categories.fetchCategories());

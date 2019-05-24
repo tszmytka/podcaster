@@ -1,3 +1,7 @@
+spring:
+  application:
+    name: Podcaster
+
 providers:
   tokfm:
     categories-url: https://audycje.tokfm.pl/audycje-tokfm
