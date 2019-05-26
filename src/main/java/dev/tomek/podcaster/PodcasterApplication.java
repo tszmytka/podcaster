@@ -10,7 +10,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import java.io.IOException;
 
-@SpringBootApplication(scanBasePackages = {"org.tomek.podcaster"})
+@SpringBootApplication(scanBasePackages = {"dev.tomek.podcaster"})
 public class PodcasterApplication extends Application {
     private static String[] cmdArgs;
     private ConfigurableApplicationContext context;
