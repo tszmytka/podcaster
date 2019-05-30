@@ -10,9 +10,9 @@ variables:
 
 # Cache downloaded dependencies and plugins between builds.
 # To keep cache across branches add 'key: "$CI_JOB_NAME"'
-cache:
-  paths:
-    - .m2/repository
+#cache:
+#  paths:
+#    - .m2/repository
 
 # For `master` branch run `mvn deploy` automatically.
 # Here you need to decide whether you want to use JDK7 or 8.
@@ -79,8 +79,8 @@ cache:
   script:
     - 'mvn $MAVEN_CLI_OPTS $JAVA_VERSION verify -Dskip.surefire.tests'
 
-before_script:
-  - apt-get update && apt-get install -y openjfx # workaround for images not containing javafx
+#before_script:
+#  - apt-get update && apt-get install -y openjfx # workaround for images not containing javafx
 
 Build jdk8:
   <<: *build
