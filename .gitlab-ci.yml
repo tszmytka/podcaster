@@ -54,8 +54,16 @@ variables:
     JAVA_VERSION: "-Djava.version=8"
 .jdk11: &jdk11
   image: maven:3.6-jdk-11
+  before_script:
+    # workaround for images not containing javafx
+    - apt-get update && apt-get install -y openjfx
+  variables:
+    JAVA_VERSION: "-Djava.version=11"
 .jdk12: &jdk12
   image: maven:3.6-jdk-12
+  before_script:
+    # workaround for images not containing javafx
+    - apt-get update && apt-get install -y openjfx
   variables:
     JAVA_VERSION: "-Djava.version=12"
 
@@ -78,9 +86,6 @@ variables:
     - master
   script:
     - 'mvn $MAVEN_CLI_OPTS $JAVA_VERSION verify -Dskip.surefire.tests'
-
-before_script:
-  - apt-get update && apt-get install -y openjfx # workaround for images not containing javafx
 
 Build jdk8:
   <<: *build
