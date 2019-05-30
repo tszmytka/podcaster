@@ -79,8 +79,8 @@ variables:
   script:
     - 'mvn $MAVEN_CLI_OPTS $JAVA_VERSION verify -Dskip.surefire.tests'
 
-#before_script:
-#  - apt-get update && apt-get install -y openjfx # workaround for images not containing javafx
+before_script:
+  - apt-get update && apt-get install -y openjfx # workaround for images not containing javafx
 
 Build jdk8:
   <<: *build
