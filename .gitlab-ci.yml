@@ -49,7 +49,7 @@ variables:
 #    - master
 
 .jdk8: &jdk8
-  image: maven:3.6-jdk-8
+  image: maven:3.6.1-amazoncorretto-8
   variables:
     JAVA_VERSION: "-Djava.version=8"
 .jdk11: &jdk11
@@ -79,8 +79,8 @@ variables:
   script:
     - 'mvn $MAVEN_CLI_OPTS $JAVA_VERSION verify -Dskip.surefire.tests'
 
-before_script:
-  - apt-get update && apt-get install -y openjfx # workaround for images not containing javafx
+#before_script:
+#  - apt-get update && apt-get install -y openjfx # workaround for images not containing javafx
 
 Build jdk8:
   <<: *build
