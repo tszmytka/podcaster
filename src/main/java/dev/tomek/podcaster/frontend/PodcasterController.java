@@ -32,7 +32,7 @@ public class PodcasterController implements Initializable {
     private static final Logger LOGGER = LoggerFactory.getLogger(PodcasterController.class);
     // todo "podcaster.properties" is generated automatically - the file is not available if mvn install hasn't been run
     private static final String PODCASTER_PROPERTIES = "podcaster.properties";
-    private static final DurationFormatter DURATION_FORMATTER = new DurationFormatter("%tH", "%tM", "%tS", ":");
+    private static final DurationFormatter DURATION_FORMATTER = new DurationFormatter();
 
     private final CategoryProvider categoryProvider;
     private final PodcastProvider podcastProvider;
