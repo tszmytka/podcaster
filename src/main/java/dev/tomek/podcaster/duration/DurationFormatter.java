@@ -19,10 +19,10 @@ public class DurationFormatter {
 
     public String format(Duration duration) {
         StringBuilder sb = new StringBuilder();
-        int hoursPart = duration.toHoursPart();
-        int minutesPart = duration.toMinutesPart();
-        int secondsPart = duration.toSecondsPart();
-        List<Integer> durationVals = new ArrayList<>();
+        long hoursPart = duration.toHours();
+        long minutesPart = duration.toMinutes();
+        long secondsPart = duration.getSeconds();
+        List<Number> durationVals = new ArrayList<>();
         if (hoursPart > 0) {
             sb.append(hourFormat).append(delimiter);
             durationVals.add(hoursPart);
