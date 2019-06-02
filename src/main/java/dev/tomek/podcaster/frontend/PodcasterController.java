@@ -1,25 +1,29 @@
 package dev.tomek.podcaster.frontend;
 
+import dev.tomek.podcaster.duration.DurationFormatter;
 import dev.tomek.podcaster.runner.PodcastPlayerRunner;
-import javafx.animation.TranslateTransition;
-import javafx.application.Platform;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.util.Duration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import dev.tomek.podcaster.tokfm.CategoryProvider;
 import dev.tomek.podcaster.tokfm.PodcastProvider;
 import dev.tomek.podcaster.tokfm.PodcastUrlProvider;
 import dev.tomek.podcaster.tokfm.model.Category;
 import dev.tomek.podcaster.tokfm.model.Podcast;
+import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.convert.ApplicationConversionService;
+import org.springframework.boot.convert.DurationFormat;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -28,6 +32,7 @@ public class PodcasterController implements Initializable {
     private static final Logger LOGGER = LoggerFactory.getLogger(PodcasterController.class);
     // todo "podcaster.properties" is generated automatically - the file is not available if mvn install hasn't been run
     private static final String PODCASTER_PROPERTIES = "podcaster.properties";
+    private static final DurationFormatter DURATION_FORMATTER = new DurationFormatter("%tH", "%tM", "%tS", ":");
 
     private final CategoryProvider categoryProvider;
     private final PodcastProvider podcastProvider;
@@ -96,9 +101,14 @@ public class PodcasterController implements Initializable {
         MultipleSelectionModel<Podcast> selectionModel = lvPodcasts.getSelectionModel();
         selectionModel.setSelectionMode(SelectionMode.SINGLE);
         selectionModel.selectedItemProperty().addListener((observableValue, podcastOld, podcastNew) -> {
-            lblPodcastName.setText(podcastNew.getTitle());
-            lblPodcastDuration.setText(podcastNew.getDuration() + " s.");
+            showPodcastDetail(podcastNew);
         });
+    }
+
+    private void showPodcastDetail(Podcast podcastNew) {
+        lblPodcastName.setText(podcastNew.getTitle());
+        Duration duration = Duration.ofSeconds(podcastNew.getDuration());
+        lblPodcastDuration.setText(DURATION_FORMATTER.format(duration));
     }
 
     public void lvPodcastsClicked() {
@@ -112,7 +122,7 @@ public class PodcasterController implements Initializable {
         podcastPlayerRunner.setPodcastPath(podcastUrlProvider.getPodcastUrl(String.valueOf(podcast.getId())));
         podcastPlayerRunner.run();
 
-        TranslateTransition transition = new TranslateTransition(Duration.seconds(5), buttonPlay);
+        TranslateTransition transition = new TranslateTransition(javafx.util.Duration.seconds(5), buttonPlay);
         transition.setOnFinished(actionEvent -> Platform.exit());
         transition.play();
     }
