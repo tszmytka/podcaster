@@ -48,10 +48,6 @@ variables:
 #  only:
 #    - master
 
-.jdk8: &jdk8
-  image: maven:3.6.1-amazoncorretto-8
-  variables:
-    JAVA_VERSION: "-Djava.version=8"
 .jdk11: &jdk11
   image: maven:3.6-jdk-11
   before_script:
@@ -86,19 +82,6 @@ variables:
     - master
   script:
     - 'mvn $MAVEN_CLI_OPTS $JAVA_VERSION verify -Dskip.surefire.tests'
-
-Build jdk8:
-  <<: *build
-  <<: *jdk8
-
-Unit Tests jdk8:
-  <<: *unit-tests
-  <<: *jdk8
-
-Integration Tests jdk8:
-  <<: *integration-tests
-  <<: *jdk8
-
 
 Build jdk11:
   <<: *build
