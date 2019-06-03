@@ -5,7 +5,6 @@ import java.time.LocalTime;
 
 public class DurationFormatter {
     public String format(Duration duration) {
-        // todo Allow not rendering hours if it is "00"
-        return LocalTime.ofSecondOfDay(duration.getSeconds()).toString();
+        return LocalTime.ofSecondOfDay(duration.getSeconds()).toString().substring(duration.toHoursPart() < 1 ? 3 : 0);
     }
 }

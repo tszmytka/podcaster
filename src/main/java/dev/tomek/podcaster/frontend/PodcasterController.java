@@ -107,8 +107,8 @@ public class PodcasterController implements Initializable {
 
     private void showPodcastDetail(Podcast podcastNew) {
         lblPodcastName.setText(podcastNew.getTitle());
-        Duration duration = Duration.ofSeconds(podcastNew.getDuration());
-        lblPodcastDuration.setText(DURATION_FORMATTER.format(duration));
+        lblPodcastDuration.setText(DURATION_FORMATTER.format(Duration.ofSeconds(podcastNew.getDuration())));
+
     }
 
     public void lvPodcastsClicked() {
