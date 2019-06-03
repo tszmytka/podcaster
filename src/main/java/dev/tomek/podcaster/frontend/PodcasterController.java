@@ -12,10 +12,9 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.convert.ApplicationConversionService;
-import org.springframework.boot.convert.DurationFormat;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -23,7 +22,6 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
-import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -53,6 +51,12 @@ public class PodcasterController implements Initializable {
 
     @FXML
     private Label lblPodcastDuration;
+
+    @FXML
+    private Label lblPodcastGuests;
+
+    @FXML
+    private VBox vboxPodcastDetails;
 
 
     public PodcasterController(CategoryProvider categoryProvider, PodcastProvider podcastProvider, PodcastUrlProvider podcastUrlProvider, PodcastPlayerRunner podcastPlayerRunner) {
@@ -84,6 +88,7 @@ public class PodcasterController implements Initializable {
                 lvPodcasts.setDisable(false);
                 buttonPlay.setDisable(true);
                 lvPodcasts.getItems().setAll(podcastProvider.getPodcasts(new URL(categoryNew.getUrl())).values());
+                vboxPodcastDetails.setVisible(false);
             } catch (MalformedURLException e) {
                 LOGGER.debug("Invalid url provided", e);
             }
@@ -108,11 +113,12 @@ public class PodcasterController implements Initializable {
     private void showPodcastDetail(Podcast podcastNew) {
         lblPodcastName.setText(podcastNew.getTitle());
         lblPodcastDuration.setText(DURATION_FORMATTER.format(Duration.ofSeconds(podcastNew.getDuration())));
-
+        lblPodcastGuests.setText(String.join("\n ", podcastNew.getGuests()));
     }
 
     public void lvPodcastsClicked() {
         buttonPlay.setDisable(false);
+        vboxPodcastDetails.setVisible(true);
     }
 
     public void buttonPlayClicked() {
