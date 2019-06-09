@@ -36,7 +36,7 @@ class PodcastProviderTest {
     void canGetPodcastsWithColdCache() throws Exception {
         URL url = new URL("http://www.example.com/path/to/podcast-group/1");
         Map<Integer, Podcast> podcastsFetched = new HashMap<>();
-        podcastsFetched.put(1, new Podcast(1, "podcast 1", 134, new String[]{"Guest1"}));
+        podcastsFetched.put(1, new Podcast(1, "podcast 1", 134, new String[]{"Guest1"}, 1421734530));
         when(podcasts.fetchPodcasts(eq(url))).thenReturn(podcastsFetched);
         assertEquals(podcastsFetched, podcastProvider.getPodcasts(url));
         verify(podcasts).fetchPodcasts(url);
@@ -47,8 +47,8 @@ class PodcastProviderTest {
     void canGetPodcastsWithWarmCache() throws Exception {
         URL url = new URL("http://www.example.com/path/to/podcast-group/1");
         Map<Integer, Podcast> podcastsCached = new HashMap<>();
-        podcastsCached.put(1, new Podcast(1, "podcast 1", 134, new String[]{"Guest1"}));
-        podcastsCached.put(2, new Podcast(2, "podcast 2", 4, new String[]{"NoBody"}));
+        podcastsCached.put(1, new Podcast(1, "podcast 1", 134, new String[]{"Guest1"}, 1421734530));
+        podcastsCached.put(2, new Podcast(2, "podcast 2", 4, new String[]{"NoBody"}, 1421734530));
         when(cache.get(url.toString())).thenReturn(podcastsCached);
         assertEquals(podcastsCached, podcastProvider.getPodcasts(url));
         verify(podcasts, never()).fetchPodcasts(url);

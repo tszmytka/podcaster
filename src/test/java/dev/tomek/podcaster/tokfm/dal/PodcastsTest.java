@@ -49,20 +49,23 @@ class PodcastsTest {
         String title0 = "Unit test podcast";
         String duration0 = "5:26";
         String[] guests0 = {"John Doe 1"};
-        rows.add(mockPodcast(String.valueOf(id0), title0, duration0, guests0));
+        String airTime0 = "04.06.2019 13:40";
+        rows.add(mockPodcast(String.valueOf(id0), title0, duration0, airTime0, guests0));
 
         // Podcast with 2 guests
         int id1 = 958439;
         String title1 = "Podcast 2";
         String duration1 = "3:14";
         String[] guests1 = {"Johny A.", "John Doe 1"};
-        rows.add(mockPodcast(String.valueOf(id1), title1, duration1, guests1));
+        String airTime1 = "04.06.2019 13:40";
+        rows.add(mockPodcast(String.valueOf(id1), title1, duration1, airTime1, guests1));
 
         // Podcast with no guests
         int id2 = 746489;
         String title2 = "Podcast with no guests";
         String duration2 = "11:55";
-        rows.add(mockPodcast(String.valueOf(id2), title2, duration2));
+        String airTime2 = "04.06.2019 13:40";
+        rows.add(mockPodcast(String.valueOf(id2), title2, duration2, airTime2));
 
         Map<Integer, Podcast> podcastsGotten = podcasts.fetchPodcasts(url);
         assertEquals(3, podcastsGotten.size());
@@ -93,11 +96,11 @@ class PodcastsTest {
         assertEquals(0, podcasts.fetchPodcasts(url).size());
     }
 
-    private static Element mockPodcast(String identifier, String title, String duration) {
-        return mockPodcast(identifier, title, duration, new Elements());
+    private static Element mockPodcast(String identifier, String title, String duration, String airTime) {
+        return mockPodcast(identifier, title, duration, airTime, new Elements());
     }
 
-    private static Element mockPodcast(String identifier, String title, String duration, Elements spans) {
+    private static Element mockPodcast(String identifier, String title, String duration, String airTime, Elements spans) {
         Element element = mock(Element.class);
         // build identifier
         Elements buttonPlay = mock(Elements.class);
@@ -120,12 +123,24 @@ class PodcastsTest {
         Element span = mock(Element.class);
         spans.add(span);
         when(span.text()).thenReturn(duration);
+
+        // build air time
+        Elements divsTime1 = mock(Elements.class);
+        when(element.select(eq(".tok-podcasts__row--audition-time"))).thenReturn(divsTime1);
+        Element divTime1 = mock(Element.class);
+        when(divsTime1.first()).thenReturn(divTime1);
+        Elements spans1 = new Elements();
+        when(divTime1.getElementsByTag(eq("span"))).thenReturn(spans1);
+        Element spanTime = mock(Element.class);
+        spans1.add(spanTime);
+        when(spanTime.text()).thenReturn(airTime);
+
         return element;
     }
 
-    private static Element mockPodcast(String identifier, String title, String duration, String[] guests) {
+    private static Element mockPodcast(String identifier, String title, String duration, String airTime, String[] guests) {
         Elements spans = new Elements();
-        Element element = mockPodcast(identifier, title, duration, spans);
+        Element element = mockPodcast(identifier, title, duration, airTime, spans);
         mockPodcastGuests(guests, spans);
         return element;
     }
