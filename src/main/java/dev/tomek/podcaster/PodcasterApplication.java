@@ -28,6 +28,8 @@ public class PodcasterApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/dev/tomek/podcaster/frontend/Podcaster.fxml"));
         fxmlLoader.setControllerFactory(context::getBean);
         primaryStage.setScene(new Scene(fxmlLoader.load(), 1024, 600));
+        primaryStage.setMinHeight(512);
+        primaryStage.setMinWidth(980);
         primaryStage.show();
     }
 

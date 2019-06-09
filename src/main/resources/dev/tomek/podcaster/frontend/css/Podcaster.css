@@ -1,0 +1,36 @@
+.main {
+    -fx-min-height: 400px;
+}
+
+.categories {
+    -fx-min-width: 310px;
+}
+
+.podcasts {
+    -fx-min-width: 450px;
+}
+
+.details {
+    -fx-padding: 5px;
+}
+
+.details-label {
+    -fx-font-size: 90%;
+}
+
+.details-podcast-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 110%;
+    -fx-max-width: 200px;
+    -fx-wrap-text: true;
+}
+
+.details-thumbnail {
+    -fx-max-width: 300px;
+    -fx-max-height: 300px;
+}
+
+.details-button {
+    -fx-min-width: 200px;
+    -fx-cursor: hand;
+}
