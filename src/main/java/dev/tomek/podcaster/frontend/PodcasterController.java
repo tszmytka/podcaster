@@ -22,6 +22,8 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -57,6 +59,9 @@ public class PodcasterController implements Initializable {
 
     @FXML
     private VBox vboxPodcastDetails;
+
+    @FXML
+    private Label lblPodcastAirTime;
 
 
     public PodcasterController(CategoryProvider categoryProvider, PodcastProvider podcastProvider, PodcastUrlProvider podcastUrlProvider, PodcastPlayerRunner podcastPlayerRunner) {
@@ -112,6 +117,8 @@ public class PodcasterController implements Initializable {
 
     private void showPodcastDetail(Podcast podcastNew) {
         lblPodcastName.setText(podcastNew.getTitle());
+        // @todo Format in a better way
+        lblPodcastAirTime.setText(Instant.ofEpochSecond(podcastNew.getAirTime()).atZone(ZoneId.of("Europe/Warsaw")).toString());
         lblPodcastDuration.setText(DURATION_FORMATTER.format(Duration.ofSeconds(podcastNew.getDuration())));
         lblPodcastGuests.setText(String.join("\n ", podcastNew.getGuests()));
     }

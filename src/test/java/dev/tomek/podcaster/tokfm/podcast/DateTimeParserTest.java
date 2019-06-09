@@ -42,7 +42,8 @@ class DateTimeParserTest {
             "00:01", 1L,
             "15:21", 921L,
             "59:59", 3_599L,
-            "5:31", 331L
+            "5:31", 331L,
+            "01:02:00", 3720L
         );
 
         for (Map.Entry<String, Long> entry : inputData.entrySet()) {

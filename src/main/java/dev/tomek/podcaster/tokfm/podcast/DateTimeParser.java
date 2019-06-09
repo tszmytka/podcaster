@@ -1,6 +1,9 @@
 package dev.tomek.podcaster.tokfm.podcast;
 
-import java.time.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DateTimeParser {
@@ -30,6 +33,6 @@ public class DateTimeParser {
     }
 
     public static int parseDurationSeconds(String durationRaw) {
-        return LocalTime.parse("00:" + durationRaw, DURATION_FORMATTER).toSecondOfDay();
+        return LocalTime.parse(durationRaw.length() < 6 ? "00:" + durationRaw : durationRaw, DURATION_FORMATTER).toSecondOfDay();
     }
 }
